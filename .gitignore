@@ -11,4 +11,5 @@ src
 develop-eggs
 sphinx
 dist
+.idea
 .DS_Store
