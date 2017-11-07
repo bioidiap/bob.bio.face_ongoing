@@ -279,3 +279,4 @@ dependencies:
 - vlfeat=0.9.20=3
 - x264=20131217=3
 - zc.buildout=2.9.2=py27_0
+- sphinx_rtd_theme=py27_0
