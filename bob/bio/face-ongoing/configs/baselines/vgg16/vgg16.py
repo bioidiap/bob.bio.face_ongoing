@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # vim: set fileencoding=utf-8 :
-
-preprocessor='face-head-vgg'
-#preprocessor='face-eyes-vgg'
+# Tiago de Freitas Pereira <tiago.pereira@idiap.ch>
 
 extractor = 'vgg_features'
 

@@ -9,9 +9,9 @@ ijba_directory = "/idiap/resource/database/IJB-A/"
 
 database = IJBABioDatabase(
   original_directory=ijba_directory,
-  protocol='compare_split6',
+  protocol='search_split10',
   original_extension=".png"
 )
 
-sub_directory = 'compare/split6'
+sub_directory = 'search/split10'
 

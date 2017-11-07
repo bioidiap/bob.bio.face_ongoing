@@ -13,5 +13,5 @@ database = IJBABioDatabase(
   original_extension=".png"
 )
 
-sub_directory = 'ijba/compare/split2'
+sub_directory = 'compare/split2'
 
