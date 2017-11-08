@@ -5,7 +5,6 @@
 
 from bob.bio.face.preprocessor import FaceCrop
 
-
 #########
 # Preprocessor
 #########

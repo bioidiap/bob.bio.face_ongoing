@@ -73,7 +73,3 @@ extractor = TensorflowEmbedding(bob.ip.tensorflow_extractor.Extractor(model_file
 #########
 algorithm = 'distance-cosine'
 
-
-from bob.bio.base.extractor import Extractor
-import bob.io.image
-
