@@ -1,10 +1,20 @@
 .. vim: set fileencoding=utf-8 :
-.. Sat Aug 20 07:33:55 CEST 2016
+.. Tiago de Freitas Pereira <tiago.pereira@idiap.ch>
 
+
+.. image:: http://img.shields.io/badge/docs-latest-orange.svg
+   :target: http://beatubulatest.lab.idiap.ch/private/docs/tiago.pereira/bob.bio.face-ongoing/master/index.html
+.. image:: https://gitlab.idiap.ch/tiago.pereira/bob.bio.face-ongoing/badges/master/build.svg
+   :target: https://gitlab.idiap.ch/tiago.pereira/bob.bio.face-ongoing/commits/master
+.. image:: https://img.shields.io/badge/gitlab-project-0000c0.svg
+   :target: https://gitlab.idiap.ch/tiago.pereira/bob.bio.face-ongoing
 
 =========================
  Face recognition ongoing
 =========================
+
+The goal of this package is to provide an "easy to reproduce" set of experiments in some large scale
+face recognition databases.
 
 This package is part of the signal-processing and machine learning toolbox
 Bob_.

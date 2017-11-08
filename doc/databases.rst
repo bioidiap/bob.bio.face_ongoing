@@ -2,10 +2,6 @@
 .. Tiago de Freitas Pereira <tiago.pereira@idiap.ch>
 
 
-==========
- Databases
-==========
-
 
 MOBIO
 -----
