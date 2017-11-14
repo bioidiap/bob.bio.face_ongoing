@@ -7,6 +7,7 @@ In the next subsections follow results in the following baselines:
  - `VGG16`_
  - `Resnet V1 trained by David Sandberg`_
  - `Idiap - Resnet V2 - MSCeleba`_
+ - `Idiap - Resnet V2 - Casia Webface`_ 
  - `Gaussian Mixture Models`_
 
 VGG16
@@ -368,6 +369,142 @@ Search protocols
 ----------------
 
 To be done.
+
+
+
+
+Idiap - Resnet V2 - Casia Webface
+=================================
+
+Inspired by `**FaceNet** <https://github.com/davidsandberg/facenet>`_ we here at Idiap trained our own CNN using the Inception Resnet 2 architecture using Casia Webface database.
+In this `links <https://gitlab.idiap.ch/bob/bob.bio.htface/blob/eb4f2f66723dc54d9fa5341f9bd46d3b3fe6b347/bob/bio/htface/config/tensorflow/CASIA_inception_resnet_v2_center_loss.py>`_ you can find the script that trains this neural network.
+
+To trigger this training it's necessary to use the `bob.learn.tensorflow <http://gitlab.idiap.ch/bob/bob.learn.tensorflow/>`_ package and run the following command::
+
+  $ ./bin/jman submit --name CELEB-GRAY --queue gpu -- bob_tf_train_generic CASIA_inception_resnet_v2_center_loss.py
+  
+
+Some quick details about this CNN (just as a mental note):
+
+  - The hot encoded layer has 10575 neurons.
+  - Faces were detected and croped to :math:`182 \times 182` using `MTCNN <https://gitlab.idiap.ch/bob/bob.ip.mtcnn>`_ face and landmark detector
+  - The following data augmentation strategies were implemented:
+     * Random crop to :math:`160 \times 160`
+     * Random Flip
+     * Images were normalized to have zero mean and standard deviation one
+  - Learning rate of 0.1
+  - Adagrad as Optimizer
+  - Batch size of 16
+
+
+Two versions of it were trained: one providing color images for training and another one providing  gray scale images.
+
+
+
+Mobio
+*****
+
+Follow bellow the results for the mobio-male protocol only.
+
+  +------------+-----------+-------------+
+  |            | ERR (dev) | HTER (eval) |
+  +============+===========+=============+
+  | color      | 6.536%    | 5.831%      |
+  +------------+-----------+-------------+  
+  | gray-scale | 7.078%    | 8.768%      |
+  +------------+-----------+-------------+
+
+The following command line triggers the verification using mobio-male protocol::
+
+ $ ./bob/bio/face-ongoing/configs/mobio--idiap_casia_inception_v2.sh
+ $ ./bob/bio/face-ongoing/configs/mobio--idiap_casia_inception_v2_GRAY.sh 
+
+
+
+IJB-A
+*****
+
+This section presents the results for verification and search protocols.
+Check `here <https://www.idiap.ch/software/bob/docs/bob/bob.db.ijba/stable/index.html>`_ for more details.
+
+
+Verification protocols
+----------------------
+
+Follow bellow the results using CMC (Cumulative Matching Curve) and TPIR (True Positive Identification Rate)
+under different values of FAR (False Alarm Rate) using the **COLORED** network.
+
+To be done
+
+  
+Now the same table using the **GRAY** scaled network.
+  
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |    CMC% (R=1)   | TPIR% (FAR=0.1) | TPIR% (FAR=0.01)|TPIR% (FAR=0.001)| split                    |
+  +=================+=================+=================+=================+==========================+
+  |85.191           |66.889           |25.846           |11.148           |split 0                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |83.931           |70.714           |32.715           |11.861           |split 1                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |84.384           |72.938           |30.197           |11.847           |split 2                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |88.926           |74.513           |33.556           |9.516            |split 3                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |86.944           |66.363           |27.765           |9.578            |split 4                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |84.951           |65.655           |27.852           |10.498           |split 5                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |83.717           |65.617           |31.598           |12.167           |split 6                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |83.351           |68.623           |29.242           |10.886           |split 7                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |84.051           |66.292           |31.798           |14.719           |split 8                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |85.191           |66.889           |25.846           |11.148           |split 9                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |**85.06 (1.61 )**|**68.45 (3.03 )**|**29.64 (2.63 )**|**11.34 (1.42 )**|mean(std)                 |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+
+
+Now the same table using the **COLOR** scaled network.
+
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |    CMC% (R=1)   | TPIR% (FAR=0.1) | TPIR% (FAR=0.01)|TPIR% (FAR=0.001)| split                    |
+  +=================+=================+=================+=================+==========================+
+  |83.195           |61.176           |24.404           |11.481           |split 0                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |82.027           |61.889           |27.993           |7.757            |split 1                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |82.186           |61.498           |25.436           |13.531           |split 2                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |86.978           |65.832           |27.323           |9.738            |split 3                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |84.55            |61.174           |26.112           |10.091           |split 4                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |82.646           |58.434           |23.665           |11.347           |split 5                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |82.022           |60.593           |25.242           |11.985           |split 6                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |82.284           |61.259           |23.372           |14.354           |split 7                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |81.03            |58.764           |25.449           |12.135           |split 8                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |83.195           |61.176           |24.404           |11.481           |split 9                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |**83.01 (1.59 )**|**61.18 (1.9  )**|**25.34 (1.42 )**|**11.39 (1.79 )**|mean(std)                 |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+
+
+ $ ./bob/bio/face-ongoing/configs/ijba--idiap_casia_inception_v2--compare.sh
+ $ ./bob/bio/face-ongoing/configs/ijba--idiap_casia_inception_v2_GRAY--compare.sh
+
+
+
+Search protocols
+----------------
+
+To be done.
+
 
 
 Intersession Variability Modelling
