@@ -10,8 +10,8 @@ from bob.bio.base.extractor import Extractor
 import numpy
 
 
-model_filename = "/idiap/temp/tpereira/msceleb/dbscan_face_prunning/official_checkpoints/resnet_inception_v2_gray/centerloss_alpha-0.95_factor-0.02_lr-0.01/"
-                  
+model_filename = "/idiap/temp/tpereira/casia_webface/new_tf_format/official_checkpoints/inception_resnet_v2_gray/centerloss_alpha-0.95_factor-0.02_lr-0.1/"
+
 
 class TensorflowEmbedding(Extractor):
 

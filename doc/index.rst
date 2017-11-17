@@ -43,7 +43,7 @@ This subsection presents the error rate results for each baseline/database.
 .. toctree::
    :maxdepth: 2
     
-   baselines
+   baselines/baselines
 
 
 ==========

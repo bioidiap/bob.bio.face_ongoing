@@ -10,6 +10,9 @@ from bob.bio.base.extractor import Extractor
 import numpy
 
 
+model_filename = "/idiap/temp/tpereira/msceleb/dbscan_face_prunning/official_checkpoints/resnet_inception_v2/centerloss_alpha-0.95_factor-0.02_lr-0.01/"
+
+
 class TensorflowEmbedding(Extractor):
 
     """
@@ -58,11 +61,10 @@ class TensorflowEmbedding(Extractor):
 #########
 # Extraction
 #########
-model_filename = "/idiap/temp/tpereira/msceleb/official_checkpoints/centerloss_alpha-0.95_factor-0.02_lr-0.01/"
 inputs = tf.placeholder(tf.float32, shape=(1, 160, 160, 3))
 
 # Taking the embedding
-prelogits = inception_resnet_v2(tf.stack([tf.image.per_image_standardization(i) for i in tf.unstack(inputs)]), is_training_mode=False)[0]
+prelogits = inception_resnet_v2(tf.stack([tf.image.per_image_standardization(i) for i in tf.unstack(inputs)]), mode=tf.estimator.ModeKeys.PREDICT)[0]
 embedding = tf.nn.l2_normalize(prelogits, dim=1, name="embedding")
 
 extractor = TensorflowEmbedding(bob.ip.tensorflow_extractor.Extractor(model_filename, inputs, embedding))
