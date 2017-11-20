@@ -11,9 +11,9 @@ The goal of this package is to provide an "easy to reproduce" set of experiments
 face recognition databases.
 This package is an extension of the `bob.bio.base <https://www.idiap.ch/software/bob/docs/bob/bob.bio.base/stable/index.html>`_ framework.
 
-============
-Installation
-============
+=============
+ Installation
+=============
 
   Here should contain instructions to:
    - Install and setup conda env
@@ -22,16 +22,16 @@ Installation
 
 
 ==========
-Databases
+ Databases
 ==========
 
 This subsection describes the databases used in this work and some of the state-of-the-art results.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   databases
-
+   databases/databases_for_benchmark
+   databases/databases_for_cnn
 
 
 =========
@@ -41,7 +41,7 @@ Baselines
 This subsection presents the error rate results for each baseline/database.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
     
    baselines/baselines
 

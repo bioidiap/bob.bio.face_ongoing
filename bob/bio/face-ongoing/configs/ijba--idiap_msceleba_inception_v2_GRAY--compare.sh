@@ -6,7 +6,7 @@ for split in 'compare_split1.py' 'compare_split2.py' 'compare_split3.py' 'compar
            'compare_split9.py' 'compare_split10.py'
 do
  
-  command_string="./bin/verify.py ./bob/bio/face-ongoing/configs/baselines/idiap_msceleba_inception_v2_GRAY/inception_v2.py ./bob/bio/face-ongoing/configs/baselines/idiap_msceleba_inception_v2_GRAY/crop_ijba.py ./bob/bio/face-ongoing/configs/databases/ijba/$split "
+  command_string="./bin/verify.py ./bob/bio/face-ongoing/configs/baselines/idiap_msceleba_inception_v2_GRAY/inception_v2.py ./bob/bio/face-ongoing/configs/baselines/idiap_msceleba_inception_v2_GRAY/crop_ijba.py ./bob/bio/face-ongoing/configs/databases/ijba/$split ./bob/bio/face-ongoing/configs/baselines/env.py "
   command_string+=" --temp-directory /idiap/temp/tpereira/bob.bio.face-ongoing/IJBA/idiap_inception_v2_msceleb_GRAY/ "
   command_string+=" --result-directory  /idiap/temp/tpereira/bob.bio.face-ongoing/IJBA/idiap_inception_v2_msceleb_GRAY/ " 
   command_string+=" -vvv "

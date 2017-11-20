@@ -2,8 +2,11 @@
 .. Tiago de Freitas Pereira <tiago.pereira@idiap.ch>
 
 
-In the next subsections follow results in the following baselines:
+==========
+ Baselines
+==========
 
+In the next subsections follow results in the following baselines:
 
 .. toctree::
    :maxdepth: 2

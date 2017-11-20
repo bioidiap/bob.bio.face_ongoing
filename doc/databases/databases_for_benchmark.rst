@@ -2,6 +2,14 @@
 .. Tiago de Freitas Pereira <tiago.pereira@idiap.ch>
 
 
+=========================
+Databases for benchmarch
+=========================
+
+There are plenty of databases used for benchmarching face recognition systems.
+So far, we are sticking with the ones below.
+
+
 
 MOBIO
 -----

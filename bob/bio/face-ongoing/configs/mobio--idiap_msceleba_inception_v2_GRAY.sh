@@ -3,6 +3,7 @@
  ./bob/bio/face-ongoing/configs/baselines/idiap_msceleba_inception_v2_GRAY/crop_mobio.py \
  --temp-directory /idiap/temp/tpereira/bob.bio.face-ongoing/MOBIO/idiap_msceleba_inception_v2_GRAY/ \
  --result-directory  /idiap/temp/tpereira/bob.bio.face-ongoing/MOBIO/idiap_msceleba_inception_v2_GRAY/ \
+ --environment="LD_LIBRARY_PATH=/idiap/user/tpereira/cuda/cuda-8.0/lib64:/idiap/user/tpereira/cuda/cudnn-8.0-linux-x64-v5.1/lib64:/idiap/user/tpereira/cuda/cuda-8.0" \
  -vvv \
  -g 'demanding' \
  --groups dev eval
