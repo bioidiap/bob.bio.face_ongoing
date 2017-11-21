@@ -24,10 +24,15 @@ This database contains 494,414 face images of 10,575 identities.
 MSCeleba
 --------
 
+The `MS-Celeb 1M <http://www.msceleb.org/>`_ has around 10M images of 100K identities.
+This dataset has several issues with mislabeling.
+We implemented a prunning algorithm using the DBScan clustering.
 
+ .. error:: **PROVIDE SOME STATS ABOUT THE NUMBER OF SAMPLES PER IDENTITY**
 
 
 MegaFace 2
--------------------------------
+----------
 
-
+The `MegaFace 2 <http://megaface.cs.washington.edu/participate/challenge2.html>`_ has arond 4M samples of 672K identities.
+So far we haven't processed this dataset.

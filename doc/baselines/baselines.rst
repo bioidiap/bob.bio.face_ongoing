@@ -6,7 +6,7 @@
  Baselines
 ==========
 
-In the next subsections follow results in the following baselines:
+In the next subsections we present the results/analysis of some experiments using several baselines.
 
 .. toctree::
    :maxdepth: 2
