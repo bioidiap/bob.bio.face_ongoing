@@ -25,45 +25,66 @@ from docopt import docopt
 from bob.bio.face.database import MobioBioDatabase
 from bob.bio.base.script.verify import main as verify
 
-def run_cnn_baseline(config_list):
-    
-    configs  = load(config_list) 
-        
 
+base_paths = pkg_resources.resource_filename("bob.bio.face_ongoing",
+                                             "configs/base_paths.py")
+
+
+resources = dict()
+
+ijba_comparison_protocols = ["compare_split{0}".format(i) for i in range(10)]
+ijba_search_protocols = ["search_split{0}".format(i) for i in range(10)]
+
+# idiap_msceleba_inception_v2
+resources["idiap_msceleba_inception_v2"] = dict()
+resources["idiap_msceleba_inception_v2"]["name"] = "idiap_casia_inception_v2"
+resources["idiap_msceleba_inception_v2"]["extractor"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_msceleba_inception_v2/inception_v2.py")
+resources["idiap_msceleba_inception_v2"]["mobio_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_msceleba_inception_v2/crop_mobio.py")
+resources["idiap_msceleba_inception_v2"]["ijba_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_msceleba_inception_v2/crop_ijba.py")
+
+
+
+def run_cnn_baseline(preprocessor, extractor, database, groups, sub_directory, protocol=None):
+    
+    configs  = load([base_paths])
     parameters = [
-        pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/base_paths.py"),
-        pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_msceleba_inception_v2/crop_mobio.py"),
-        pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_msceleba_inception_v2/inception_v2.py"),
-        '-d', 'mobio-male',
+        base_paths,
+        preprocessor,
+        extractor,
+        '-d', database,
         '-a', "distance-cosine",
         '-vvv',
         '-g', 'grid',
-        '--groups', 'dev eval'
         '--temp-directory', configs.temp_dir,
         '--result-directory', configs.results_dir,
-        '--sub-directory', "MOBIO/idiap_casia_inception_v2"        
-    ]
-
+        '--sub-directory', sub_directory
+    ] + ['--groups'] + groups
     
+    if protocol is not None:
+        parameters += ['--protocol', protocol]
+    
+    return parameters
 
-    #parameters = [
-    #    pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/base_paths.py"),
-    #    '-d', 'mobio-male',
-    #    '-p', pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_msceleba_inception_v2/crop_mobio.py"),
-    #    '-e', pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_msceleba_inception_v2/inception_v2.py"),
-    #    '-a', "distance-cosine",
-    #    '--temp-directory', configs["temp_dir"],
-    #    '--result-directory', configs["results_dir"],
-    #    '--sub-directory', "MOBIO/idiap_casia_inception_v2"        
-    #]
 
-    #import ipdb; ipdb.set_trace();
+def run_idiap_msceleba_inception_v2():
 
+    # Triggering mobio
+    parameters = run_cnn_baseline(resources["idiap_msceleba_inception_v2"]["mobio_crop"],
+                                  resources["idiap_msceleba_inception_v2"]["extractor"],
+                                  "mobio-male",
+                                  ["dev", "eval"],
+                                  "MOBIO/"+resources["idiap_msceleba_inception_v2"]["name"],
+                                  protocol=None)
     verify(parameters)
     
-    x=0
-
-
+    for p in ijba_comparison_protocols:
+        parameters = run_cnn_baseline(resources["idiap_msceleba_inception_v2"]["ijba_crop"],
+                                      resources["idiap_msceleba_inception_v2"]["extractor"],
+                                      "mobio-male",
+                                      ["dev"],
+                                      "MOBIO/"+resources["idiap_msceleba_inception_v2"]["name"],
+                                      protocol=None)
+    
 
 
 
@@ -71,19 +92,9 @@ def main():
 
     args = docopt(__doc__, version='Run experiment')
     
-    base_paths = pkg_resources.resource_filename("bob.bio.face_ongoing",
-                                                 "configs/base_paths.py")
-                                                 
-    #croppers = pkg_resources.resource_filename("bob.bio.face_ongoing",
-    #                                           "configs/baselines/idiap_msceleba_inception_v2/crop_mobio.py")
-                                               
-    #extractor = pkg_resources.resource_filename("bob.bio.face_ongoing",
-    #                                           "configs/baselines/idiap_msceleba_inception_v2/inception_v2.py")    
-    
-    run_cnn_baseline([base_paths])
-    
-    
-    
+    if args["--baselines"] == "all":
+        run_idiap_msceleba_inception_v2()
+
 
 
 if __name__ == "__main__":
