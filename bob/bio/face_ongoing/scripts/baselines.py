@@ -18,7 +18,7 @@ Options:
 
 import bob.bio.base
 import bob.io.base
-
+import os
 from bob.extension.config import load
 import pkg_resources
 from docopt import docopt
@@ -116,11 +116,11 @@ def trigger_verify(preprocessor, extractor, database, groups, sub_directory, pro
     if extracted_directory is not None:
         parameters += ['--extracted-directory', extracted_directory]
 
-
     return parameters
 
 
 def run_cnn_baseline(baseline):
+    configs  = load([base_paths])
 
     # Triggering mobio
     parameters = trigger_verify(resources[baseline]["mobio_crop"],
@@ -130,21 +130,23 @@ def run_cnn_baseline(baseline):
                                 "MOBIO/"+resources[baseline]["name"],
                                 protocol=None)
     verify(parameters)
-
+    first_subdir = os.path.join("IJBA", resources[baseline]["name"], ijba_comparison_protocols[0])
     for p in ijba_comparison_protocols:
+        sub_directory = os.path.join("IJBA", resources[baseline]["name"], p)
         parameters = trigger_verify(resources[baseline]["ijba_crop"],
                                     resources[baseline]["extractor"],
                                     resources["databases"]["ijba"],
                                     ["dev"],
-                                    "IJBA/"+resources[baseline]["name"]+"/"+p,
-                                    protocol=p)
+                                    sub_directory,
+                                    protocol=p,
+                                    preprocessed_directory=os.path.join(configs.temp_dir, first_subdir, "preprocessed"),
+                                    extracted_directory=os.path.join(configs.temp_dir, first_subdir, "extracted"))
         verify(parameters)
 
 
 def main():
 
     args = docopt(__doc__, version='Run experiment')
-    run_cnn_baseline
     if args["--baselines"] == "all":
         for b in all_baselines:
             run_cnn_baseline(baseline=b)
