@@ -101,7 +101,7 @@ def trigger_verify(preprocessor, extractor, database, groups, sub_directory, pro
         '-d', database,
         '-a', "distance-cosine",
         '-vvv',
-        '-g', 'demmanding',
+        '-g', 'demanding',
         '--temp-directory', configs.temp_dir,
         '--result-directory', configs.results_dir,
         '--sub-directory', sub_directory
@@ -130,6 +130,7 @@ def run_cnn_baseline(baseline):
                                 "MOBIO/"+resources[baseline]["name"],
                                 protocol=None)
     verify(parameters)
+
     first_subdir = os.path.join("IJBA", resources[baseline]["name"], ijba_comparison_protocols[0])
     for p in ijba_comparison_protocols:
         sub_directory = os.path.join("IJBA", resources[baseline]["name"], p)
