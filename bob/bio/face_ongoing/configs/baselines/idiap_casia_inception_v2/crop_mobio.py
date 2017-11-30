@@ -18,3 +18,4 @@ preprocessor = FaceCrop(
     cropped_positions={'leye': LEFT_EYE_POS, 'reye': RIGHT_EYE_POS},
     color_channel='rgb'
 )
+

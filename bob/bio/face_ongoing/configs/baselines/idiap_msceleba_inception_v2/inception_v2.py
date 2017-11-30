@@ -7,11 +7,9 @@ import bob.bio.face
 from bob.learn.tensorflow.network import inception_resnet_v2
 import tensorflow as tf
 from bob.bio.base.extractor import Extractor
-import numpy
 
 
-model_filename = "/idiap/temp/tpereira/msceleb/dbscan_face_prunning/official_checkpoints/resnet_inception_v2/centerloss_alpha-0.95_factor-0.02_lr-0.01/"
-
+model_filename = inception_resnet_v2_msceleb
 
 class TensorflowEmbedding(Extractor):
 
@@ -40,7 +38,9 @@ class TensorflowEmbedding(Extractor):
         feature : 2D :py:class:`numpy.ndarray` (floats)
           The extracted features
         """
-
+        import bob.io.image
+        import numpy
+        
         if image.ndim>2:
             image = bob.io.image.to_matplotlib(image)
             image = numpy.reshape(image, tuple([1] + list(image.shape)) )
@@ -70,8 +70,4 @@ embedding = tf.nn.l2_normalize(prelogits, dim=1, name="embedding")
 extractor = TensorflowEmbedding(bob.ip.tensorflow_extractor.Extractor(model_filename, inputs, embedding))
 
 
-#########
-# Alg
-#########
-algorithm = 'distance-cosine'
 
