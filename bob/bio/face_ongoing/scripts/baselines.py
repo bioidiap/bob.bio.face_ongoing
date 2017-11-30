@@ -29,22 +29,6 @@ def run_cnn_baseline(config_list):
     
     configs  = load(config_list) 
         
-    #database = MobioBioDatabase(
-    #                original_directory=configs["mobio_data_info"]["data_path"],
-    #                original_extension=configs["mobio_data_info"]["extension"],
-    #                annotation_directory=configs["mobio_data_info"]["annotations_path"],
-    #                annotation_type="eyecenter",#
-
-    #                protocol='male',
-    #                models_depend_on_protocol=True,
-
-    #                all_files_options={'gender': 'male'},
-    #                extractor_training_options={'gender': 'male'},
-    #                projector_training_options={'gender': 'male'},
-    #                enroller_training_options={'gender': 'male'},
-    #                z_probe_options={'gender': 'male'})
-
-    
 
     parameters = [
         pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/base_paths.py"),
@@ -54,6 +38,7 @@ def run_cnn_baseline(config_list):
         '-a', "distance-cosine",
         '-vvv',
         '-g', 'grid',
+        '--groups', 'dev eval'
         '--temp-directory', configs.temp_dir,
         '--result-directory', configs.results_dir,
         '--sub-directory', "MOBIO/idiap_casia_inception_v2"        
