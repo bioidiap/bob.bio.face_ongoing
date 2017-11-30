@@ -35,6 +35,18 @@ resources = dict()
 ijba_comparison_protocols = ["compare_split{0}".format(i) for i in range(10)]
 ijba_search_protocols = ["search_split{0}".format(i) for i in range(10)]
 
+all_baselines = ["idiap_msceleba_inception_v2",
+                 "facenet_inception_v1_msceleb",
+                 "idiap_inception_v2_casia",
+                 "idiap_inception_v2_casia_GRAY",
+                 "idiap_inception_v2_msceleb_GRAY",
+                 "vgg16"]
+
+# Mapping databases
+resources["databases"] = dict()
+resources["databases"]["mobio"] = "mobio-male"
+resources["databases"]["ijba"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/databases/ijba.py")
+
 # idiap_msceleba_inception_v2
 resources["idiap_msceleba_inception_v2"] = dict()
 resources["idiap_msceleba_inception_v2"]["name"] = "idiap_casia_inception_v2"
@@ -42,9 +54,44 @@ resources["idiap_msceleba_inception_v2"]["extractor"] = pkg_resources.resource_f
 resources["idiap_msceleba_inception_v2"]["mobio_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_msceleba_inception_v2/crop_mobio.py")
 resources["idiap_msceleba_inception_v2"]["ijba_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_msceleba_inception_v2/crop_ijba.py")
 
+# idiap_msceleba_inception_v2
+resources["idiap_msceleba_inception_v2_gray"] = dict()
+resources["idiap_msceleba_inception_v2_gray"]["name"] = "idiap_casia_inception_v2_gray"
+resources["idiap_msceleba_inception_v2_gray"]["extractor"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_msceleba_inception_v2_gray/inception_v2.py")
+resources["idiap_msceleba_inception_v2_gray"]["mobio_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_msceleba_inception_v2_gray/crop_mobio.py")
+resources["idiap_msceleba_inception_v2_gray"]["ijba_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_msceleba_inception_v2_gray/crop_ijba.py")
+
+# idiap_casia_inception_v2_gray
+resources["idiap_casia_inception_v2_gray"] = dict()
+resources["idiap_casia_inception_v2_gray"]["name"] = "idiap_casia_inception_v2_gray"
+resources["idiap_casia_inception_v2_gray"]["extractor"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2_gray/inception_v2.py")
+resources["idiap_casia_inception_v2_gray"]["mobio_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2_gray/crop_mobio.py")
+resources["idiap_casia_inception_v2_gray"]["ijba_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2_gray/crop_ijba.py")
+
+# idiap_casia_inception_v2
+resources["idiap_casia_inception_v2"] = dict()
+resources["idiap_casia_inception_v2"]["name"] = "idiap_casia_inception_v2"
+resources["idiap_casia_inception_v2"]["extractor"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2/inception_v2.py")
+resources["idiap_casia_inception_v2"]["mobio_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2/crop_mobio.py")
+resources["idiap_casia_inception_v2"]["ijba_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2/crop_ijba.py")
+
+# vgg-16
+resources["vgg16"] = dict()
+resources["vgg16"]["name"] = "vgg16"
+resources["vgg16"]["extractor"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/vgg16/vgg16.py")
+resources["vgg16"]["mobio_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/vgg16/crop_mobio.py")
+resources["vgg16"]["mobio_ijba"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/vgg16/crop_ijba.py")
+
+# vgg-16
+resources["facenet_msceleba_inception_v1"] = dict()
+resources["facenet_msceleba_inception_v1"]["name"] = "facenet_msceleba_inception_v1"
+resources["facenet_msceleba_inception_v1"]["extractor"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/facenet_msceleba_inception_v1/inception_v1.py")
+resources["facenet_msceleba_inception_v1"]["mobio_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/facenet_msceleba_inception_v1/crop_mobio.py")
+resources["facenet_msceleba_inception_v1"]["mobio_ijba"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/facenet_msceleba_inception_v1/crop_ijba.py")
 
 
-def run_cnn_baseline(preprocessor, extractor, database, groups, sub_directory, protocol=None):
+def trigger_verify(preprocessor, extractor, database, groups, sub_directory, protocol=None,
+                   preprocessed_directory=None, extracted_directory=None):
     
     configs  = load([base_paths])
     parameters = [
@@ -54,7 +101,7 @@ def run_cnn_baseline(preprocessor, extractor, database, groups, sub_directory, p
         '-d', database,
         '-a', "distance-cosine",
         '-vvv',
-        '-g', 'grid',
+        '-g', 'demmanding',
         '--temp-directory', configs.temp_dir,
         '--result-directory', configs.results_dir,
         '--sub-directory', sub_directory
@@ -62,39 +109,47 @@ def run_cnn_baseline(preprocessor, extractor, database, groups, sub_directory, p
     
     if protocol is not None:
         parameters += ['--protocol', protocol]
-    
+
+    if preprocessed_directory is not None:
+        parameters += ['--preprocessed-directory', preprocessed_directory]
+
+    if extracted_directory is not None:
+        parameters += ['--extracted-directory', extracted_directory]
+
+
     return parameters
 
 
-def run_idiap_msceleba_inception_v2():
+def run_cnn_baseline(baseline):
 
     # Triggering mobio
-    parameters = run_cnn_baseline(resources["idiap_msceleba_inception_v2"]["mobio_crop"],
-                                  resources["idiap_msceleba_inception_v2"]["extractor"],
-                                  "mobio-male",
-                                  ["dev", "eval"],
-                                  "MOBIO/"+resources["idiap_msceleba_inception_v2"]["name"],
-                                  protocol=None)
+    parameters = trigger_verify(resources[baseline]["mobio_crop"],
+                                resources[baseline]["extractor"],
+                                "mobio-male",
+                                ["dev", "eval"],
+                                "MOBIO/"+resources[baseline]["name"],
+                                protocol=None)
     verify(parameters)
-    
-    for p in ijba_comparison_protocols:
-        parameters = run_cnn_baseline(resources["idiap_msceleba_inception_v2"]["ijba_crop"],
-                                      resources["idiap_msceleba_inception_v2"]["extractor"],
-                                      "mobio-male",
-                                      ["dev"],
-                                      "MOBIO/"+resources["idiap_msceleba_inception_v2"]["name"],
-                                      protocol=None)
-    
 
+    for p in ijba_comparison_protocols:
+        parameters = trigger_verify(resources[baseline]["ijba_crop"],
+                                    resources[baseline]["extractor"],
+                                    resources["databases"]["ijba"],
+                                    ["dev"],
+                                    "IJBA/"+resources[baseline]["name"]+"/"+p,
+                                    protocol=p)
+        verify(parameters)
 
 
 def main():
 
     args = docopt(__doc__, version='Run experiment')
-    
+    run_cnn_baseline
     if args["--baselines"] == "all":
-        run_idiap_msceleba_inception_v2()
-
+        for b in all_baselines:
+            run_cnn_baseline(baseline=b)
+    else:
+        run_cnn_baseline(baseline=args["--baselines"])
 
 
 if __name__ == "__main__":
