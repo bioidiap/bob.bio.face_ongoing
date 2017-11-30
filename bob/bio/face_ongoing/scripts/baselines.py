@@ -134,6 +134,8 @@ def run_cnn_baseline(baseline, database=resources["databases"].keys()):
 
     if "ijba" in database:
         first_subdir = os.path.join("IJBA", resources[baseline]["name"], ijba_comparison_protocols[0])
+        import tensorflow as tf
+        tf.reset_default_graph()
         for p in ijba_comparison_protocols:
             sub_directory = os.path.join("IJBA", resources[baseline]["name"], p)
             parameters = trigger_verify(resources[baseline]["ijba_crop"],
