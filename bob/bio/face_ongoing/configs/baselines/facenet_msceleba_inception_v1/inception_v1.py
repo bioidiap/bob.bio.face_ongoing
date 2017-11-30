@@ -12,6 +12,7 @@ from bob.io.image import to_matplotlib
 import os
 import logging
 logger = logging.getLogger(__name__)
+model_filename = facenet
 
 
 def prewhiten(img):
@@ -116,13 +117,6 @@ class FaceNet(Extractor):
 #########
 # Extraction
 #########
-model_filename = "/idiap/temp/tpereira/msceleb/official_checkpoints/facenet/20170512-110547/"
 extractor = FaceNet(model_filename)
-
-
-#########
-# Alg
-#########
-algorithm = 'distance-cosine'
 
 

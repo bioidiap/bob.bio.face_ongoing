@@ -10,7 +10,7 @@ from bob.bio.base.extractor import Extractor
 import numpy
 
 
-model_filename = "/idiap/temp/tpereira/casia_webface/new_tf_format/official_checkpoints/inception_resnet_v2_gray/centerloss_alpha-0.95_factor-0.02_lr-0.1/"
+model_filename = inception_resnet_v2_casia_webface_gray
 
 
 class TensorflowEmbedding(Extractor):
@@ -68,10 +68,4 @@ prelogits = inception_resnet_v2(tf.stack([tf.image.per_image_standardization(i) 
 embedding = tf.nn.l2_normalize(prelogits, dim=1, name="embedding")
 
 extractor = TensorflowEmbedding(bob.ip.tensorflow_extractor.Extractor(model_filename, inputs, embedding))
-
-
-#########
-# Alg
-#########
-algorithm = 'distance-cosine'
 

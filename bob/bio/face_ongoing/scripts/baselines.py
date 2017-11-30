@@ -32,8 +32,8 @@ base_paths = pkg_resources.resource_filename("bob.bio.face_ongoing",
 
 resources = dict()
 
-ijba_comparison_protocols = ["compare_split{0}".format(i) for i in range(10)]
-ijba_search_protocols = ["search_split{0}".format(i) for i in range(10)]
+ijba_comparison_protocols = ["compare_split{0}".format(i) for i in range(1, 11)]
+ijba_search_protocols = ["search_split{0}".format(i) for i in range(1, 11)]
 
 all_baselines = ["idiap_msceleba_inception_v2",
                  "facenet_inception_v1_msceleb",
@@ -119,40 +119,47 @@ def trigger_verify(preprocessor, extractor, database, groups, sub_directory, pro
     return parameters
 
 
-def run_cnn_baseline(baseline):
+def run_cnn_baseline(baseline, database=resources["databases"].keys()):
     configs  = load([base_paths])
 
     # Triggering mobio
-    parameters = trigger_verify(resources[baseline]["mobio_crop"],
-                                resources[baseline]["extractor"],
-                                "mobio-male",
-                                ["dev", "eval"],
-                                "MOBIO/"+resources[baseline]["name"],
-                                protocol=None)
-    verify(parameters)
-
-    first_subdir = os.path.join("IJBA", resources[baseline]["name"], ijba_comparison_protocols[0])
-    for p in ijba_comparison_protocols:
-        sub_directory = os.path.join("IJBA", resources[baseline]["name"], p)
-        parameters = trigger_verify(resources[baseline]["ijba_crop"],
+    if "mobio" in database:
+        parameters = trigger_verify(resources[baseline]["mobio_crop"],
                                     resources[baseline]["extractor"],
-                                    resources["databases"]["ijba"],
-                                    ["dev"],
-                                    sub_directory,
-                                    protocol=p,
-                                    preprocessed_directory=os.path.join(configs.temp_dir, first_subdir, "preprocessed"),
-                                    extracted_directory=os.path.join(configs.temp_dir, first_subdir, "extracted"))
+                                    "mobio-male",
+                                    ["dev", "eval"],
+                                    "MOBIO/"+resources[baseline]["name"],
+                                    protocol=None)
         verify(parameters)
+
+    if "ijba" in database:
+        first_subdir = os.path.join("IJBA", resources[baseline]["name"], ijba_comparison_protocols[0])
+        for p in ijba_comparison_protocols:
+            sub_directory = os.path.join("IJBA", resources[baseline]["name"], p)
+            parameters = trigger_verify(resources[baseline]["ijba_crop"],
+                                        resources[baseline]["extractor"],
+                                        resources["databases"]["ijba"],
+                                        ["dev"],
+                                        sub_directory,
+                                        protocol=p,
+                                        preprocessed_directory=os.path.join(configs.temp_dir, first_subdir, "preprocessed"),
+                                        extracted_directory=os.path.join(configs.temp_dir, first_subdir, "extracted"))
+            verify(parameters)
 
 
 def main():
 
     args = docopt(__doc__, version='Run experiment')
+    if args["--databases"] == "all":
+        database = resources["databases"].keys()
+    else:
+        database = args["--databases"]
+
     if args["--baselines"] == "all":
         for b in all_baselines:
-            run_cnn_baseline(baseline=b)
+            run_cnn_baseline(baseline=b, database=database)
     else:
-        run_cnn_baseline(baseline=args["--baselines"])
+        run_cnn_baseline(baseline=args["--baselines"], database=database)
 
 
 if __name__ == "__main__":

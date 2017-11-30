@@ -11,6 +11,7 @@ from bob.bio.base.extractor import Extractor
 
 model_filename = inception_resnet_v2_msceleb
 
+
 class TensorflowEmbedding(Extractor):
 
     """
@@ -68,6 +69,3 @@ prelogits = inception_resnet_v2(tf.stack([tf.image.per_image_standardization(i) 
 embedding = tf.nn.l2_normalize(prelogits, dim=1, name="embedding")
 
 extractor = TensorflowEmbedding(bob.ip.tensorflow_extractor.Extractor(model_filename, inputs, embedding))
-
-
-
