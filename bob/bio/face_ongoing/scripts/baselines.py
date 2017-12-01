@@ -36,10 +36,10 @@ ijba_comparison_protocols = ["compare_split{0}".format(i) for i in range(1, 11)]
 ijba_search_protocols = ["search_split{0}".format(i) for i in range(1, 11)]
 
 all_baselines = ["idiap_msceleba_inception_v2",
-                 "facenet_inception_v1_msceleb",
-                 "idiap_inception_v2_casia",
-                 "idiap_inception_v2_casia_GRAY",
-                 "idiap_inception_v2_msceleb_GRAY",
+                 "idiap_msceleba_inception_v2_gray",
+                 "facenet_msceleba_inception_v1",
+                 "idiap_casia_inception_v2",
+                 "idiap_casia_inception_v2_gray",
                  "vgg16"]
 
 # Mapping databases
@@ -80,14 +80,14 @@ resources["vgg16"] = dict()
 resources["vgg16"]["name"] = "vgg16"
 resources["vgg16"]["extractor"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/vgg16/vgg16.py")
 resources["vgg16"]["mobio_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/vgg16/crop_mobio.py")
-resources["vgg16"]["mobio_ijba"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/vgg16/crop_ijba.py")
+resources["vgg16"]["ijba_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/vgg16/crop_ijba.py")
 
 # vgg-16
 resources["facenet_msceleba_inception_v1"] = dict()
 resources["facenet_msceleba_inception_v1"]["name"] = "facenet_msceleba_inception_v1"
 resources["facenet_msceleba_inception_v1"]["extractor"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/facenet_msceleba_inception_v1/inception_v1.py")
 resources["facenet_msceleba_inception_v1"]["mobio_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/facenet_msceleba_inception_v1/crop_mobio.py")
-resources["facenet_msceleba_inception_v1"]["mobio_ijba"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/facenet_msceleba_inception_v1/crop_ijba.py")
+resources["facenet_msceleba_inception_v1"]["ijba_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/facenet_msceleba_inception_v1/crop_ijba.py")
 
 
 def trigger_verify(preprocessor, extractor, database, groups, sub_directory, protocol=None,
@@ -104,7 +104,8 @@ def trigger_verify(preprocessor, extractor, database, groups, sub_directory, pro
         '-g', 'demanding',
         '--temp-directory', configs.temp_dir,
         '--result-directory', configs.results_dir,
-        '--sub-directory', sub_directory
+        '--sub-directory', sub_directory,
+        '--environment','LD_LIBRARY_PATH=/idiap/user/tpereira/cuda/cuda-8.0/lib64:/idiap/user/tpereira/cuda/cudnn-8.0-linux-x64-v5.1/lib64:/idiap/user/tpereira/cuda/cuda-8.0',
     ] + ['--groups'] + groups
     
     if protocol is not None:
@@ -124,6 +125,9 @@ def run_cnn_baseline(baseline, database=resources["databases"].keys()):
 
     # Triggering mobio
     if "mobio" in database:
+        import tensorflow as tf
+        tf.reset_default_graph()
+
         parameters = trigger_verify(resources[baseline]["mobio_crop"],
                                     resources[baseline]["extractor"],
                                     "mobio-male",
@@ -133,10 +137,11 @@ def run_cnn_baseline(baseline, database=resources["databases"].keys()):
         verify(parameters)
 
     if "ijba" in database:
-        first_subdir = os.path.join("IJBA", resources[baseline]["name"], ijba_comparison_protocols[0])
-        import tensorflow as tf
-        tf.reset_default_graph()
-        for p in ijba_comparison_protocols:
+       first_subdir = os.path.join("IJBA", resources[baseline]["name"], ijba_comparison_protocols[0])
+       for p in ijba_comparison_protocols:
+            import tensorflow as tf
+            tf.reset_default_graph()
+
             sub_directory = os.path.join("IJBA", resources[baseline]["name"], p)
             parameters = trigger_verify(resources[baseline]["ijba_crop"],
                                         resources[baseline]["extractor"],
@@ -147,6 +152,7 @@ def run_cnn_baseline(baseline, database=resources["databases"].keys()):
                                         preprocessed_directory=os.path.join(configs.temp_dir, first_subdir, "preprocessed"),
                                         extracted_directory=os.path.join(configs.temp_dir, first_subdir, "extracted"))
             verify(parameters)
+            
 
 
 def main():
