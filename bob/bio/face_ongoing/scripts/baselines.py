@@ -108,7 +108,7 @@ def trigger_verify(preprocessor, extractor, database, groups, sub_directory, pro
         '--sub-directory', sub_directory,
         '--environment','LD_LIBRARY_PATH=/idiap/user/tpereira/cuda/cuda-8.0/lib64:/idiap/user/tpereira/cuda/cudnn-8.0-linux-x64-v5.1/lib64:/idiap/user/tpereira/cuda/cuda-8.0',
     ] + ['--groups'] + groups
-    
+
     if protocol is not None:
         parameters += ['--protocol', protocol]
 
@@ -158,17 +158,20 @@ def run_cnn_baseline(baseline, database=resources["databases"].keys()):
         import tensorflow as tf
         tf.reset_default_graph()
 
-        p = "1:1"
-        first_subdir = "data"
+        # Comparison protocol
+        p = "1-1"
         sub_directory = os.path.join("IJBB", resources[baseline]["name"], p)
+
+        # Just to reuse in other experiments
+        first_sub_directory = sub_directory
         parameters = trigger_verify(resources[baseline]["ijba_crop"],
                                     resources[baseline]["extractor"],
                                     resources["databases"]["ijbb"],
                                     ["dev"],
                                     sub_directory,
                                     protocol=p,
-                                    preprocessed_directory=os.path.join(configs.temp_dir, first_subdir, "preprocessed"),
-                                    extracted_directory=os.path.join(configs.temp_dir, first_subdir, "extracted"))
+                                    preprocessed_directory=os.path.join(configs.temp_dir, first_sub_directory, "preprocessed"),
+                                    extracted_directory=os.path.join(configs.temp_dir, first_sub_directory, "extracted"))
         verify(parameters)
 
 
