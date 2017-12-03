@@ -6,6 +6,9 @@
 ijba_data_info = {"data_path": "/idiap/resource/database/IJB-A/",
                   "extension": ".png"}
                   
+ijbb_data_info = {"data_path": "/idiap/resource/database/IJB-B/",
+                  "extension": ".png"}
+
 mobio_data_info = {"data_path": "/idiap/resource/database/mobio/IMAGES_PNG",
                    "annotations_path": "/idiap/resource/database/mobio/IMAGE_ANNOTATIONS",
                    "extension": ".png"}

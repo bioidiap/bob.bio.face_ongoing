@@ -46,17 +46,18 @@ all_baselines = ["idiap_msceleba_inception_v2",
 resources["databases"] = dict()
 resources["databases"]["mobio"] = "mobio-male"
 resources["databases"]["ijba"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/databases/ijba.py")
+resources["databases"]["ijbb"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/databases/ijbb.py")
 
 # idiap_msceleba_inception_v2
 resources["idiap_msceleba_inception_v2"] = dict()
-resources["idiap_msceleba_inception_v2"]["name"] = "idiap_casia_inception_v2"
+resources["idiap_msceleba_inception_v2"]["name"] = "idiap_msceleba_inception_v2"
 resources["idiap_msceleba_inception_v2"]["extractor"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_msceleba_inception_v2/inception_v2.py")
 resources["idiap_msceleba_inception_v2"]["mobio_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_msceleba_inception_v2/crop_mobio.py")
 resources["idiap_msceleba_inception_v2"]["ijba_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_msceleba_inception_v2/crop_ijba.py")
 
 # idiap_msceleba_inception_v2
 resources["idiap_msceleba_inception_v2_gray"] = dict()
-resources["idiap_msceleba_inception_v2_gray"]["name"] = "idiap_casia_inception_v2_gray"
+resources["idiap_msceleba_inception_v2_gray"]["name"] = "idiap_msceleba_inception_v2_gray"
 resources["idiap_msceleba_inception_v2_gray"]["extractor"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_msceleba_inception_v2_gray/inception_v2.py")
 resources["idiap_msceleba_inception_v2_gray"]["mobio_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_msceleba_inception_v2_gray/crop_mobio.py")
 resources["idiap_msceleba_inception_v2_gray"]["ijba_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_msceleba_inception_v2_gray/crop_ijba.py")
@@ -137,8 +138,8 @@ def run_cnn_baseline(baseline, database=resources["databases"].keys()):
         verify(parameters)
 
     if "ijba" in database:
-       first_subdir = os.path.join("IJBA", resources[baseline]["name"], ijba_comparison_protocols[0])
-       for p in ijba_comparison_protocols:
+        first_subdir = os.path.join("IJBA", resources[baseline]["name"], ijba_comparison_protocols[0])
+        for p in ijba_comparison_protocols:
             import tensorflow as tf
             tf.reset_default_graph()
 
@@ -153,6 +154,22 @@ def run_cnn_baseline(baseline, database=resources["databases"].keys()):
                                         extracted_directory=os.path.join(configs.temp_dir, first_subdir, "extracted"))
             verify(parameters)
             
+    if "ijbb" in database:
+        import tensorflow as tf
+        tf.reset_default_graph()
+
+        p = "1:1"
+        first_subdir = "data"
+        sub_directory = os.path.join("IJBB", resources[baseline]["name"], p)
+        parameters = trigger_verify(resources[baseline]["ijba_crop"],
+                                    resources[baseline]["extractor"],
+                                    resources["databases"]["ijbb"],
+                                    ["dev"],
+                                    sub_directory,
+                                    protocol=p,
+                                    preprocessed_directory=os.path.join(configs.temp_dir, first_subdir, "preprocessed"),
+                                    extracted_directory=os.path.join(configs.temp_dir, first_subdir, "extracted"))
+        verify(parameters)
 
 
 def main():
