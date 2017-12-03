@@ -47,8 +47,8 @@ Follow bellow the results for the mobio-male protocol only.
 
 The following command line triggers the verification using mobio-male protocol::
 
- $ ./bob/bio/face-ongoing/configs/mobio--idiap_msceleba_inception_v2.sh
- $ ./bob/bio/face-ongoing/configs/mobio--idiap_msceleba_inception_v2_GRAY.sh 
+  $ ./bin/bob_faceongoing_baselines.py --baselines idiap_msceleba_inception_v2 --databases mobio
+  $ ./bin/bob_faceongoing_baselines.py --baselines idiap_msceleba_inception_v2_gray --databases mobio
 
 
 
@@ -121,9 +121,8 @@ Now the same table using the **GRAY** scaled network.
   +-----------------+-----------------+-----------------+-----------------+--------------------------+
 
 
-
- $ ./bob/bio/face-ongoing/configs/ijba--idiap_msceleba_inception_v2--compare.sh
- $ ./bob/bio/face-ongoing/configs/ijba--idiap_msceleba_inception_v2_GRAY--compare.sh
+  $ ./bin/bob_faceongoing_baselines.py --baselines idiap_msceleba_inception_v2 --databases ijba
+  $ ./bin/bob_faceongoing_baselines.py --baselines idiap_msceleba_inception_v2_gray --databases ijba
 
 
 

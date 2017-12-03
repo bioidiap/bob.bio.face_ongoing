@@ -32,8 +32,8 @@ Follow bellow the results for the mobio-male protocol only.
 
 To trigger this experiment run the following command::
 
- $ ./bob/bio/face-ongoing/configs/mobio--vgg16.sh
- 
+  $ ./bin/bob_faceongoing_baselines.py --baselines vgg16 --databases mobio
+
   
 
 IJB-A
@@ -76,7 +76,7 @@ under different values of FAR (False Alarm Rate).
 
 The following command line triggers the sequence of verification experiments::
 
- $ ./bob/bio/face-ongoing/configs/ijba--vgg16--compare.sh
+  $ ./bin/bob_faceongoing_baselines.py --baselines vgg16 --databases ijba
 
 
 
@@ -111,8 +111,7 @@ Follow bellow the results using DIR (Detection Identification Rate) under differ
 
 The following command line triggers the sequence of verification experiments::
 
- $ ./bob/bio/face-ongoing/configs/ijba--vgg16--search.sh
-
+  $ ./bin/bob_faceongoing_baselines.py --baselines vgg16 --databases ijba
 
 IJB-B
 *****

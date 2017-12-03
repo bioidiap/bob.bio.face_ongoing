@@ -46,8 +46,8 @@ Follow bellow the results for the mobio-male protocol only.
 
 The following command line triggers the verification using mobio-male protocol::
 
- $ ./bob/bio/face-ongoing/configs/mobio--idiap_casia_inception_v2.sh
- $ ./bob/bio/face-ongoing/configs/mobio--idiap_casia_inception_v2_GRAY.sh 
+  $ ./bin/bob_faceongoing_baselines.py --baselines idiap_casia_inception_v2 --databases mobio
+  $ ./bin/bob_faceongoing_baselines.py --baselines idiap_casia_inception_v2_gray --databases mobio
 
 
 
@@ -119,8 +119,8 @@ Now the same table using the **GRAY** scaled network.
   |**85.06 (1.61 )**|**68.45 (3.03 )**|**29.64 (2.63 )**|**11.34 (1.42 )**|mean(std)                 |
   +-----------------+-----------------+-----------------+-----------------+--------------------------+
 
- $ ./bob/bio/face-ongoing/configs/ijba--idiap_casia_inception_v2--compare.sh
- $ ./bob/bio/face-ongoing/configs/ijba--idiap_casia_inception_v2_GRAY--compare.sh
+  $ ./bin/bob_faceongoing_baselines.py --baselines idiap_casia_inception_v2 --databases ijba
+  $ ./bin/bob_faceongoing_baselines.py --baselines idiap_casia_inception_v2_gray --databases ijba
 
 
 

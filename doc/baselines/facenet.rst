@@ -29,7 +29,7 @@ Follow bellow the results for the mobio-male protocol only.
 
 The following command line triggers the verification using mobio-male protocol::
 
- $ ./bob/bio/face-ongoing/configs/mobio--facenet_msceleba_inception_v1.sh
+ $ ./bin/bob_faceongoing_baselines.py --baselines facenet_msceleba_inception_v1 --databases mobio
 
 
 IJB-A
@@ -75,7 +75,7 @@ under different values of FAR (False Alarm Rate).
 
 The following command line triggers the sequence of verification experiments::
 
- $ ./bob/bio/face-ongoing/configs/ijba--facenet_msceleba_inception_v1--compare.sh
+  $ ./bin/bob_faceongoing_baselines.py --baselines facenet_msceleba_inception_v1 --databases ijba
 
 
 Search protocols
@@ -112,12 +112,12 @@ Follow bellow the results using DIR (Detection Identification Rate) under differ
 
 The following command line triggers the sequence of verification experiments::
 
- $ ./bob/bio/face-ongoing/configs/ijba--facenet_msceleba_inception_v1--search.sh
+  $ ./bin/bob_faceongoing_baselines.py --baselines facenet_msceleba_inception_v1 --databases ijba
 
 
 
 IJB-B
 *****
 
-To be done.
+  $ ./bin/bob_faceongoing_baselines.py --baselines facenet_msceleba_inception_v1 --databases ijbb
 
