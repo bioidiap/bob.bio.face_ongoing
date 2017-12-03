@@ -47,7 +47,7 @@ setup(
 
     # This is the basic information about your project. Modify all this
     # information before releasing code publicly.
-    name='bob.bio.face-ongoing',
+    name='bob.bio.face_ongoing',
     version=open("version.txt").read().rstrip(),
     description='Tools for running face recognition experiments',
 
