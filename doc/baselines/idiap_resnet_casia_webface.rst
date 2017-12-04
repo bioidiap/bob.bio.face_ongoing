@@ -132,6 +132,5 @@ The following command lines triggers, respectivelly, the sequence of verificatio
 Search protocols
 ----------------
 
-To be done.
-
+.. Todo:: To be done
 

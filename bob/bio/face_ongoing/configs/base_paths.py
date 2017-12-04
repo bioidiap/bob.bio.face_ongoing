@@ -21,9 +21,13 @@ results_dir = "/idiap/temp/tpereira/bob.bio.face-ongoing/"
 
 # Background model paths
 
-# dbscan pruning 0.5
+# dbscan pruning 0.5 - light CNN
 inception_resnet_v2_msceleb      = "/idiap/temp/tpereira/msceleb/dbscan_face_prunning/official_checkpoints/resnet_inception_v2/centerloss_alpha-0.95_factor-0.02_lr-0.01/"
 inception_resnet_v2_msceleb_gray = "/idiap/temp/tpereira/msceleb/dbscan_face_prunning/official_checkpoints/resnet_inception_v2_gray/centerloss_alpha-0.95_factor-0.02_lr-0.01/"
+
+# dbscan pruning 0.5 - facenet
+inception_resnet_v2_msceleb_facenet_prunning      = "/idiap/temp/tpereira/msceleb/dbscan_face_prunning_facenet/official_checkpoints/resnet_inception_v2/centerloss_alpha-0.95_factor-0.02_lr-0.01/"
+inception_resnet_v2_msceleb_gray_facenet_prunning = "/idiap/temp/tpereira/msceleb/dbscan_face_prunning_facenet/official_checkpoints/resnet_inception_v2_gray/centerloss_alpha-0.95_factor-0.02_lr-0.01/"
 
 
 # dbscan pruning 0.

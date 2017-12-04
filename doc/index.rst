@@ -15,10 +15,28 @@ This package is an extension of the `bob.bio.base <https://www.idiap.ch/software
  Installation
 =============
 
-  Here should contain instructions to:
-   - Install and setup conda env
-   - Instructions of how to pre-process you data to train CNNs
-   - Instructions on how to setup the paths
+The installation instructions are based on conda (**LINUX ONLY**).
+Please `install conda <https://conda.io/docs/install/quick.html#linux-miniconda-install>`_ before continuing.
+
+After everything installed do::
+
+  $ cd bob.bio.face_ongoing
+  $ conda env create -f environment.yml
+  $ source activate bob.bio.face_ongoing  # activate the environment
+  $ buildout
+      
+
+Before the magic begins, it's necessary to set a set of paths.
+Please, edit this file according to your own working environment.
+I hope the variable names are clear enough::
+
+  $ vim ./bob/bio/face_ongoing/configs/base_paths.py
+
+Follow below how this file looks like.
+
+.. literalinclude:: ../bob/bio/face_ongoing/configs/base_paths.py
+   :language: python
+   :caption: "base_paths.py"
 
 
 ==========
@@ -41,7 +59,7 @@ Baselines
 This subsection presents the error rate results for each baseline/database.
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
     
    baselines/baselines
 

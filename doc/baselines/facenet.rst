@@ -121,5 +121,5 @@ The following command line triggers the sequence of verification experiments::
 IJB-B
 *****
 
-  $ ./bin/bob_faceongoing_baselines.py --baselines facenet_msceleba_inception_v1 --databases ijbb
+.. Todo:: Running
 

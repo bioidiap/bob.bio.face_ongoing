@@ -45,12 +45,35 @@ Follow bellow the results for the mobio-male protocol only.
   | gray-scale | 10.152%   | 6.970%      |
   +------------+-----------+-------------+
 
-The following command lines trigger the verification experiment using mobio-male protocol and the results computation (in terms of HTER)
+The following command lines trigger the verification experiments using mobio-male protocol and the results computation (in terms of HTER)
 repectivelly::
 
   $ ./bin/bob_faceongoing_baselines.py --baselines idiap_msceleba_inception_v2 --databases mobio
   $ ./bin/bob_faceongoing_baselines.py --baselines idiap_msceleba_inception_v2_gray --databases mobio
   $ ./bin/collect_results.py -D [MY-PATH] -c HTER
+
+
+Data selection is everything,  bellow follow the same architection working with a different prunning based on DBScan outlier detector using the facenet embeddings.
+
+.. Todo:: Details about this strategy is needed.
+
+
+The following command lines trigger the verification experiments under these new data selection::
+
+  $ ./bin/bob_faceongoing_baselines.py --baselines idiap_msceleba_inception_v2_facenet_prunning --databases mobio
+  $ ./bin/bob_faceongoing_baselines.py --baselines idiap_msceleba_inception_v2_gray_facenet_prunning --databases mobio
+  $ ./bin/collect_results.py -D [MY-PATH] -c HTER
+
+
+As before, follow this results in terms of HTER of such data selection.
+
+  +------------+-----------+-------------+
+  |            | ERR (dev) | HTER (eval) |
+  +============+===========+=============+
+  | color      | 4.917%    | 5.598%      |
+  +------------+-----------+-------------+  
+  | gray-scale | 9.004%    | 9.017%      |
+  +------------+-----------+-------------+
 
 
 IJB-A
@@ -129,9 +152,77 @@ The following command lines triggers, respectivelly, the sequence of verificatio
   $ ./bin/bob_ijba_collect_results.py [MY-PATH-GRAY-EXPERIMENT] -r comparison  
 
 
+Data selection is everything, bellow follow the same architecture working with a different prunning based on DBScan outlier detector using facenet embeddings.
+
+.. Todo:: Details about this strategy is needed.
+
+Below follow the same results with this data prunning using the **COLORED** network:
+
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |        RR       | TPIR% (FAR=0.1) | TPIR% (FAR=0.01)|TPIR% (FAR=0.001)| split                    |
+  +=================+=================+=================+=================+==========================+
+  |82.973           |73.821           |19.135           |4.049            |split 0                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |82.139           |71.332           |21.698           |6.521            |split 1                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |82.88            |71.429           |22.416           |4.065            |split 2                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |87.924           |75.626           |24.93            |6.9              |split 3                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |85.918           |71.437           |18.13            |3.763            |split 4                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |82.524           |70.449           |21.056           |5.643            |split 5                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |84.383           |70.46            |25.726           |5.327            |split 6                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |80.203           |62.38            |16.649           |3.148            |split 7                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |84.219           |68.989           |20.955           |3.933            |split 8                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |82.973           |73.821           |19.135           |4.049            |split 9                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |**83.61 (2.03 )**|**70.97 (3.42 )**|**20.98 (2.73 )**|**4.74  (1.21 )**|mean(std)                 |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+
+Now the same table using the **GRAY** scaled signals.
+
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |        RR       | TPIR% (FAR=0.1) | TPIR% (FAR=0.01)|TPIR% (FAR=0.001)| split                    |
+  +=================+=================+=================+=================+==========================+
+  |79.978           |58.458           |13.921           |2.219            |split 0                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |79.227           |56.043           |11.411           |2.979            |split 1                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |77.328           |56.446           |12.66            |2.613            |split 2                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |84.641           |67.39            |15.637           |3.617            |split 3                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |83.124           |62.543           |15.45            |3.079            |split 4                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |78.58            |58.192           |13.228           |2.913            |split 5                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |79.6             |61.077           |14.891           |4.298            |split 6                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |75.72            |50.534           |9.232            |2.508            |split 7                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |79.351           |59.157           |12.978           |3.034            |split 8                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |79.978           |58.458           |13.921           |2.219            |split 9                   |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+  |**79.75 (2.44 )**|**58.83 (4.19 )**|**13.33 (1.84 )**|**2.95  (0.61 )**|mean(std)                 |
+  +-----------------+-----------------+-----------------+-----------------+--------------------------+
+
+
+The following command lines trigger the verification experiments under these new data selection::
+
+  $ ./bin/bob_faceongoing_baselines.py --baselines idiap_msceleba_inception_v2_facenet_prunning --databases ijba
+  $ ./bin/bob_faceongoing_baselines.py --baselines idiap_msceleba_inception_v2_gray_facenet_prunning --databases ijba
+  $ ./bin/collect_results.py -D [MY-PATH] -c HTER
+
+
+
 Search protocols
 ----------------
 
-To be done.
-
+.. Todo:: To be done
 
