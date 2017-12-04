@@ -27,9 +27,11 @@ Follow bellow the results for the mobio-male protocol only.
   | 0.521%    | 0.293%      |
   +-----------+-------------+
 
-The following command line triggers the verification using mobio-male protocol::
+The following command lines trigger the verification experiment using mobio-male protocol and the results computation (in terms of HTER)
+repectivelly::
 
  $ ./bin/bob_faceongoing_baselines.py --baselines facenet_msceleba_inception_v1 --databases mobio
+ $ ./bin/collect_results.py -D [MY-PATH] -c HTER
 
 
 IJB-A
@@ -73,11 +75,11 @@ under different values of FAR (False Alarm Rate).
 
 
 
-The following command line triggers the sequence of verification experiments::
+The following command lines triggers, respectivelly, the sequence of verification experiments and plots this evaluation table above::
 
-  $ ./bin/bob_faceongoing_baselines.py --baselines facenet_msceleba_inception_v1 --databases ijba
-
-
+ $ ./bin/bob_faceongoing_baselines.py --baselines facenet_msceleba_inception_v1 --databases ijba
+ $ ./bin/bob_ijba_collect_results.py [MY-PATH] -r comparison
+ 
 Search protocols
 ----------------
 
@@ -112,8 +114,8 @@ Follow bellow the results using DIR (Detection Identification Rate) under differ
 
 The following command line triggers the sequence of verification experiments::
 
-  $ ./bin/bob_faceongoing_baselines.py --baselines facenet_msceleba_inception_v1 --databases ijba
-
+ $ ./bin/bob_faceongoing_baselines.py --baselines facenet_msceleba_inception_v1 --databases ijba
+ $ ./bin/bob_ijba_collect_results.py [MY-PATH] -r search
 
 
 IJB-B

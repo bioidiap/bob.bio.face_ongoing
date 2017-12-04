@@ -169,7 +169,7 @@ def run_cnn_baseline(baseline, database=resources["databases"].keys()):
                                     resources["databases"]["ijbb"],
                                     ["dev"],
                                     sub_directory,
-                                    protocol=p,
+                                    protocol="1:1",
                                     preprocessed_directory=os.path.join(configs.temp_dir, first_sub_directory, "preprocessed"),
                                     extracted_directory=os.path.join(configs.temp_dir, first_sub_directory, "extracted"))
         verify(parameters)

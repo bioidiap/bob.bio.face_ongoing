@@ -45,11 +45,12 @@ Follow bellow the results for the mobio-male protocol only.
   | gray-scale | 10.152%   | 6.970%      |
   +------------+-----------+-------------+
 
-The following command line triggers the verification using mobio-male protocol::
+The following command lines trigger the verification experiment using mobio-male protocol and the results computation (in terms of HTER)
+repectivelly::
 
   $ ./bin/bob_faceongoing_baselines.py --baselines idiap_msceleba_inception_v2 --databases mobio
   $ ./bin/bob_faceongoing_baselines.py --baselines idiap_msceleba_inception_v2_gray --databases mobio
-
+  $ ./bin/collect_results.py -D [MY-PATH] -c HTER
 
 
 IJB-A
@@ -120,10 +121,12 @@ Now the same table using the **GRAY** scaled network.
   |**81.38 (2.21 )**|**57.51 (4.03 )**|**12.3  (1.63 )**|**1.14  (0.61 )**|mean(std)                 |
   +-----------------+-----------------+-----------------+-----------------+--------------------------+
 
+The following command lines triggers, respectivelly, the sequence of verification experiments and plots the evaluation tables above::
 
   $ ./bin/bob_faceongoing_baselines.py --baselines idiap_msceleba_inception_v2 --databases ijba
   $ ./bin/bob_faceongoing_baselines.py --baselines idiap_msceleba_inception_v2_gray --databases ijba
-
+  $ ./bin/bob_ijba_collect_results.py [MY-PATH-COLOR-EXPERIMENT] -r comparison
+  $ ./bin/bob_ijba_collect_results.py [MY-PATH-GRAY-EXPERIMENT] -r comparison  
 
 
 Search protocols

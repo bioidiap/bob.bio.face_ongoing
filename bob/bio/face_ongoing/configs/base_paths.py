@@ -33,4 +33,4 @@ inception_resnet_v1_msceleb = "/idiap/temp/tpereira/msceleb/dbscan_face_prunning
 inception_resnet_v2_casia_webface      = "/idiap/temp/tpereira/casia_webface/new_tf_format/official_checkpoints/inception_resnet_v2/centerloss_alpha-0.95_factor-0.02_lr-0.1/"
 inception_resnet_v2_casia_webface_gray = "/idiap/temp/tpereira/casia_webface/new_tf_format/official_checkpoints/inception_resnet_v2_gray/centerloss_alpha-0.95_factor-0.02_lr-0.1/"
 
-facenet = "/idiap/temp/tpereira/msceleb/official_checkpoints/facenet/20170512-110547/"
+facenet = "/idiap/project/hface/models/cnn/facenet/20170512-110547"
