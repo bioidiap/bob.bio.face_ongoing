@@ -121,5 +121,22 @@ The following command line triggers the sequence of verification experiments::
 IJB-B
 *****
 
-.. Todo:: Running
+This section presents the results for verification (1:1) protocol.
+Check `here <https://www.idiap.ch/software/bob/docs/bob/bob.db.ijbb/stable/index.html>`_ for more details.
+
++-----------------+-----------------+-----------------+-----------------+
+|        RR       | TPIR% (FAR=0.1) | TPIR% (FAR=0.01)|TPIR% (FAR=0.001)|
++=================+=================+=================+=================+
+|72.736           |96.904           |85.891           |62.853           |
++-----------------+-----------------+-----------------+-----------------+
+
+.. Note::
+  The result doesn't look sound. How is it possible to have RR=70% and TPIR under certain threshold above this value?
+
+The following command line triggers the sequence of verification experiments::
+
+ $ ./bin/bob_faceongoing_baselines.py --baselines facenet_msceleba_inception_v1 --databases ijbb
+ $ ./bin/bob_ijba_collect_results.py [MY-PATH] -r search
+
+
 

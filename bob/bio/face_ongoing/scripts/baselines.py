@@ -52,7 +52,7 @@ ijba_search_protocols = ["search_split{0}".format(i) for i in range(1, 11)]
 
 def trigger_verify(preprocessor, extractor, database, groups, sub_directory, protocol=None,
                    preprocessed_directory=None, extracted_directory=None):
-    
+
     configs  = load([base_paths])
     parameters = [
         base_paths,
@@ -61,13 +61,12 @@ def trigger_verify(preprocessor, extractor, database, groups, sub_directory, pro
         '-d', database,
         '-a', "distance-cosine",
         '-vvv',
-        '-g', 'demanding',
         '--temp-directory', configs.temp_dir,
         '--result-directory', configs.results_dir,
         '--sub-directory', sub_directory,
+        '-g', 'demanding',
         '--environment','LD_LIBRARY_PATH=/idiap/user/tpereira/cuda/cuda-8.0/lib64:/idiap/user/tpereira/cuda/cudnn-8.0-linux-x64-v5.1/lib64:/idiap/user/tpereira/cuda/cuda-8.0',
     ] + ['--groups'] + groups
-
     if protocol is not None:
         parameters += ['--protocol', protocol]
 
