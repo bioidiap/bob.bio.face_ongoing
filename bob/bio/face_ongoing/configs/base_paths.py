@@ -33,8 +33,14 @@ inception_resnet_v2_msceleb_gray_facenet_prunning = "/idiap/temp/tpereira/mscele
 # dbscan pruning 0.
 inception_resnet_v1_msceleb = "/idiap/temp/tpereira/msceleb/dbscan_face_prunning_facenet_0.4/official_checkpoints/resnet_inception_v1/centerloss_alpha-0.95_factor-0.02_lr-0.01/"
 
-# Casia modles
-inception_resnet_v2_casia_webface      = "/idiap/temp/tpereira/casia_webface/new_tf_format/official_checkpoints/inception_resnet_v2/centerloss_alpha-0.95_factor-0.02_lr-0.1/"
-inception_resnet_v2_casia_webface_gray = "/idiap/temp/tpereira/casia_webface/new_tf_format/official_checkpoints/inception_resnet_v2_gray/centerloss_alpha-0.95_factor-0.02_lr-0.1/"
+# Casia models
+inception_resnet_v2_casia_webface_centerloss      = "/idiap/temp/tpereira/casia_webface/new_tf_format/official_checkpoints/inception_resnet_v2/centerloss_alpha-0.95_factor-0.02_lr-0.1/"
+inception_resnet_v2_casia_webface_centerloss_gray = "/idiap/temp/tpereira/casia_webface/new_tf_format/official_checkpoints/inception_resnet_v2_gray/centerloss_alpha-0.95_factor-0.02_lr-0.1/"
+
+inception_resnet_v2_casia_webface_crossentropy      = "/idiap/temp/tpereira/casia_webface/new_tf_format/inception_resnet_v2/official_checkpoints/crossentropy_rgb/"
+inception_resnet_v2_casia_webface_crossentropy_gray = "/idiap/temp/tpereira/casia_webface/new_tf_format/inception_resnet_v2/official_checkpoints/crossentropy_gray/"
+
+
+inception_resnet_v1_casia_webface_crossentropy_tantriggs = "/idiap/temp/tpereira/casia_webface/new_tf_format/inception_resnet_v1/official_checkpoints/cross_entropy_tantriggs/"
 
 facenet = "/idiap/project/hface/models/cnn/facenet/20170512-110547"

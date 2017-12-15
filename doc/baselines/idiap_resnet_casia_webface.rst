@@ -2,9 +2,9 @@
 .. Tiago de Freitas Pereira <tiago.pereira@idiap.ch>
 
 
-=================================
-Idiap - Resnet V2 - Casia Webface
-=================================
+=====================================
+Idiap - Resnet V2/V1 - Casia Webface
+=====================================
 
 Inspired by `**FaceNet** <https://github.com/davidsandberg/facenet>`_ we here at Idiap trained our own CNN using the Inception Resnet 2 architecture using Casia Webface database.
 In this `links <https://gitlab.idiap.ch/bob/bob.bio.htface/blob/eb4f2f66723dc54d9fa5341f9bd46d3b3fe6b347/bob/bio/htface/config/tensorflow/CASIA_inception_resnet_v2_center_loss.py>`_ you can find the script that trains this neural network.
@@ -27,7 +27,7 @@ Some quick details about this CNN (just as a mental note):
   - Batch size of 16
 
 
-Two versions of it were trained: one providing color images for training and another one providing  gray scale images.
+Four versions of it were trained: one providing color images for training and another one providing  gray scale images both using crossentropy loss and crossentropy + center loss.
 
 
 
@@ -36,19 +36,29 @@ Mobio
 
 Follow bellow the results for the mobio-male protocol only.
 
-  +------------+-----------+-------------+
-  |            | ERR (dev) | HTER (eval) |
-  +============+===========+=============+
-  | color      | 6.536%    | 5.831%      |
-  +------------+-----------+-------------+  
-  | gray-scale | 7.078%    | 8.768%      |
-  +------------+-----------+-------------+
+  +------------------------------------------+-----------+-------------+
+  |                                          | ERR (dev) | HTER (eval) |
+  +==========================================+===========+=============+
+  | v2 color cross+center loss               | 6.536%    | 5.831%      |
+  +------------------------------------------+-----------+-------------+  
+  | v2 color crossentropy loss               | 6.371%    | 5.957%      |
+  +------------------------------------------+-----------+-------------+    
+  | v2 gray cross+center loss                | 7.078%    | 8.768%      |
+  +------------------------------------------+-----------+-------------+  
+  | v2 gray crossentropy loss                | 7.485%    | 7.182%      |
+  +------------------------------------------+-----------+-------------+
+  | v1 color + Tantriggs crossentropy loss   | 8.655%    | 7.525%      |  
+  +------------------------------------------+-----------+-------------+
+  
 
 The following command lines trigger the verification experiment using mobio-male protocol and the results computation (in terms of HTER)
 repectivelly::
 
-  $ ./bin/bob_faceongoing_baselines.py --baselines idiap_casia_inception_v2 --databases mobio
-  $ ./bin/bob_faceongoing_baselines.py --baselines idiap_casia_inception_v2_gray --databases mobio
+  $ ./bin/bob_faceongoing_baselines.py --baselines idiap_casia_inception_v2_centerloss --databases mobio
+  $ ./bin/bob_faceongoing_baselines.py --baselines idiap_casia_inception_v2_centerloss_gray --databases mobio
+  $ ./bin/bob_faceongoing_baselines.py --baselines idiap_casia_inception_v2_crossentropy --databases mobio
+  $ ./bin/bob_faceongoing_baselines.py --baselines idiap_casia_inception_v2_crossentropy_gray --databases mobio  
+  $ ./bin/bob_faceongoing_baselines.py --baselines idiap_casia_inception_v1_crossentropy_tantriggs --databases mobio
   $ ./bin/collect_results.py -D [MY-PATH] -c HTER
 
 
@@ -63,7 +73,12 @@ Verification protocols
 ----------------------
 
 Follow bellow the results using CMC (Cumulative Matching Curve) and TPIR (True Positive Identification Rate)
-under different values of FAR (False Alarm Rate) using the **COLORED** network.
+under different values of FAR (False Alarm Rate).
+
+Center loss + crossentropy loss
+*******************************
+
+Using the **COLORED** network
 
   +-----------------+-----------------+-----------------+-----------------+--------------------------+
   |    CMC% (R=1)   | TPIR% (FAR=0.1) | TPIR% (FAR=0.01)|TPIR% (FAR=0.001)| split                    |
@@ -119,6 +134,66 @@ Now the same table using the **GRAY** scaled network.
   +-----------------+-----------------+-----------------+-----------------+--------------------------+
   |**85.06 (1.61 )**|**68.45 (3.03 )**|**29.64 (2.63 )**|**11.34 (1.42 )**|mean(std)                 |
   +-----------------+-----------------+-----------------+-----------------+--------------------------+
+
+Crossentropy loss
+*****************
+
+Using the **COLORED** network.
+
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|        RR       | TPIR% (FAR=0.1) | TPIR% (FAR=0.01)|TPIR% (FAR=0.001)| split                    |
++=================+=================+=================+=================+==========================+
+|82.196           |62.23            |25.18            |9.04             |split 0                   |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|83.371           |65.767           |30.298           |12.591           |split 1                   |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|82.071           |64.286           |26.249           |11.092           |split 2                   |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|87.368           |69.115           |31.497           |9.683            |split 3                   |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|86.089           |62.372           |23.774           |8.153            |split 4                   |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|83.131           |60.862           |26.82            |10.437           |split 5                   |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|81.84            |60.896           |28.692           |8.717            |split 6                   |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|81.537           |63.661           |23.159           |9.232            |split 7                   |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|82.429           |60.0             |26.292           |12.697           |split 8                   |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|82.196           |62.23            |25.18            |9.04             |split 9                   |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|**83.22 (1.85 )**|**63.14 (2.58 )**|**26.71 (2.57 )**|**10.07 (1.51 )**|mean(std)                 |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+
+Now the same table using the **GRAY** scaled network.
+
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|        RR       | TPIR% (FAR=0.1) | TPIR% (FAR=0.01)|TPIR% (FAR=0.001)| split                    |
++=================+=================+=================+=================+==========================+
+|83.527           |64.725           |24.182           |7.598            |split 0                   |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|82.811           |67.51            |28.443           |10.849           |split 1                   |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|82.707           |65.389           |26.19            |10.801           |split 2                   |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|88.37            |70.228           |32.22            |9.293            |split 3                   |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|86.545           |63.626           |27.48            |9.521            |split 4                   |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|84.102           |64.078           |26.032           |11.165           |split 5                   |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|82.385           |64.528           |26.816           |12.591           |split 6                   |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|83.138           |66.702           |25.987           |10.459           |split 7                   |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|82.429           |64.775           |27.697           |11.742           |split 8                   |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|83.527           |64.725           |24.182           |7.598            |split 9                   |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+|**83.95 (1.87 )**|**65.63 (1.89 )**|**26.92 (2.2  )**|**10.16 (1.57 )**|mean(std)                 |
++-----------------+-----------------+-----------------+-----------------+--------------------------+
+
 
 
 The following command lines triggers, respectivelly, the sequence of verification experiments and plots evaluation tables above::

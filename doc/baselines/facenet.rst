@@ -38,7 +38,7 @@ IJB-A
 *****
 
 This section presents the results for verification and search protocols.
-Check `here <https://www.idiap.ch/software/bob/docs/bob/bob.db.ijba/stable/index.html>`_ for more details.
+Check this `link <https://www.idiap.ch/software/bob/docs/bob/bob.db.ijba/stable/index.html>`_ for more details.
 
 
 Verification protocols
@@ -136,7 +136,7 @@ Check `here <https://www.idiap.ch/software/bob/docs/bob/bob.db.ijbb/stable/index
 The following command line triggers the sequence of verification experiments::
 
  $ ./bin/bob_faceongoing_baselines.py --baselines facenet_msceleba_inception_v1 --databases ijbb
- $ ./bin/bob_ijba_collect_results.py [MY-PATH] -r search
+ $ ./bin/bob_ijba_collect_results.py [MY-PATH] -r comparison
 
 
 
