@@ -6,7 +6,7 @@ from bob.learn.tensorflow.loss import mean_cross_entropy_loss
 import os
 import tensorflow as tf
 
-learning_rate = 0.01
+learning_rate = 0.1
 data_shape = (182, 182, 3)  # size of atnt images
 output_shape = (160, 160)
 data_type = tf.uint8
@@ -18,7 +18,7 @@ embedding_validation = True
 steps = 2000000
 
 model_dir = "/idiap/temp/tpereira/casia_webface/new_tf_format/inception_resnet_v2/crossentropy_gray"
-tf_record_path = "/idiap/project/hface/databases/tfrecords/casia_webface/RGB/"
+tf_record_path = "/idiap/project/hface/databases/tfrecords/casia_webface/182x/RGB"
 tf_record_path_validation = "/idiap/project/hface/databases/tfrecords/lfw/182x/RGB"
 
 
@@ -52,10 +52,11 @@ run_config = tf.estimator.RunConfig()
 run_config = run_config.replace(save_checkpoints_steps=2000)
 
 #                             
- 
+optimizer = tf.train.RMSPropOptimizer(learning_rate, decay=0.9, momentum=0.9, epsilon=1.0)
+#tf.train.AdagradOptimizer(learning_rate)
 estimator = Logits(model_dir=model_dir,
                              architecture=inception_resnet_v2,
-                             optimizer=tf.train.AdagradOptimizer(learning_rate),
+                             optimizer=optimizer,
                              n_classes=n_classes,
                              embedding_validation=embedding_validation,
                              validation_batch_size=validation_batch_size,
