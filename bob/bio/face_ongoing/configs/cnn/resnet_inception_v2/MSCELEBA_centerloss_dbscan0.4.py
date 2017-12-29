@@ -20,7 +20,7 @@ alpha=0.90
 factor=0.02
 steps = 2000000
 
-model_dir = "/idiap/temp/tpereira/msceleb/dbscan_face_prunning_facenet/resnet_inception_v2_dbscan0.4/centerloss_alpha-0.95_factor-0.02_lr-0.01"
+model_dir = "/idiap/temp/tpereira/msceleb/dbscan_face_prunning_facenet/resnet_inception_v2_dbscan0.4/centerloss_alpha-0.90_factor-0.02"
 tf_record_path = "/idiap/project/hface/databases/tfrecords/msceleba/182x_dbscan_facenet_0.4/"
 tf_record_path_validation = "/idiap/project/hface/databases/tfrecords/lfw/182x/RGB/"
 
@@ -50,9 +50,11 @@ def eval_input_fn():
 
 run_config = tf.estimator.RunConfig()
 run_config = run_config.replace(save_checkpoints_steps=2000)
+optimizer = tf.train.RMSPropOptimizer(learning_rate, decay=0.9, momentum=0.9, epsilon=1.0)
+#tf.train.AdagradOptimizer(learning_rate)
 estimator = LogitsCenterLoss(model_dir=model_dir,
                              architecture=inception_resnet_v2,
-                             optimizer=tf.train.AdagradOptimizer(learning_rate),
+                             optimizer=optimizer,
                              n_classes=n_classes,
                              embedding_validation=embedding_validation,
                              validation_batch_size=validation_batch_size,
@@ -66,4 +68,3 @@ hooks = [LoggerHookEstimator(estimator, 16, 300),
                                    output_dir=model_dir,
                                    scaffold=tf.train.Scaffold(),
                                    summary_writer=tf.summary.FileWriter(model_dir) )]
-
