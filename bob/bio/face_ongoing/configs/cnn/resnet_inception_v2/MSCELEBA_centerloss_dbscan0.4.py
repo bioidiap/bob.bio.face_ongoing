@@ -1,26 +1,28 @@
 from bob.learn.tensorflow.network import inception_resnet_v2
-from bob.learn.tensorflow.estimators import Logits
+from bob.learn.tensorflow.estimators import LogitsCenterLoss
 from bob.learn.tensorflow.dataset.tfrecords import batch_data_and_labels_image_augmentation, shuffle_data_and_labels_image_augmentation
 from bob.learn.tensorflow.utils.hooks import LoggerHookEstimator
-from bob.learn.tensorflow.loss import mean_cross_entropy_loss
 import os
 import tensorflow as tf
 
-learning_rate = 0.01
+
+learning_rate = 0.1
 data_shape = (182, 182, 3)  # size of atnt images
 output_shape = (160, 160)
 data_type = tf.uint8
 batch_size = 16
 validation_batch_size = 250
 epochs = 10
-n_classes = 10575
+n_classes = 59354
 embedding_validation = True
 
+alpha=0.90
+factor=0.02
 steps = 2000000
 
-model_dir = "/idiap/temp/tpereira/casia_webface/new_tf_format/inception_resnet_v2/crossentropy_newnorm"
-tf_record_path = "/idiap/project/hface/databases/tfrecords/casia_webface/182x/RGB/"
-tf_record_path_validation = "/idiap/project/hface/databases/tfrecords/lfw/182x/RGB"
+model_dir = "/idiap/temp/tpereira/msceleb/dbscan_face_prunning_facenet/resnet_inception_v2_dbscan0.4/centerloss_alpha-0.95_factor-0.02_lr-0.01"
+tf_record_path = "/idiap/project/hface/databases/tfrecords/msceleba/182x_dbscan_facenet_0.4/"
+tf_record_path_validation = "/idiap/project/hface/databases/tfrecords/lfw/182x/RGB/"
 
 
 # Creating the tf record
@@ -34,33 +36,28 @@ def train_input_fn():
                                                       random_brightness=False,
                                                       random_contrast=False,
                                                       random_saturation=False,
-                                                      per_image_normalization=True,
-                                                      gray_scale=False)
+                                                      per_image_normalization=True)
         
 
 def eval_input_fn():
     return batch_data_and_labels_image_augmentation(tfrecords_filename_validation, data_shape, data_type, validation_batch_size, epochs=1,
-                                                    output_shape=output_shape,
-                                                    random_flip=False,
-                                                    random_brightness=False,
-                                                    random_contrast=False,
-                                                    random_saturation=False,
-                                                    per_image_normalization=True,
-                                                    gray_scale=False)
-
+                                                      output_shape=output_shape,
+                                                      random_flip=False,
+                                                      random_brightness=False,
+                                                      random_contrast=False,
+                                                      random_saturation=False,
+                                                      per_image_normalization=True)
 
 run_config = tf.estimator.RunConfig()
 run_config = run_config.replace(save_checkpoints_steps=2000)
-
-#                             
- 
-estimator = Logits(model_dir=model_dir,
+estimator = LogitsCenterLoss(model_dir=model_dir,
                              architecture=inception_resnet_v2,
                              optimizer=tf.train.AdagradOptimizer(learning_rate),
                              n_classes=n_classes,
                              embedding_validation=embedding_validation,
                              validation_batch_size=validation_batch_size,
-                             loss_op=mean_cross_entropy_loss,
+                             alpha=alpha,
+                             factor=factor,
                              config=run_config)
 
 
