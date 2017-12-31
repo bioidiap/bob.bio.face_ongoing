@@ -11,6 +11,10 @@
 #./bin/bob_tf_train_generic \
 #./bob/bio/face_ongoing/configs/cnn/resnet_inception_v2/MSCELEBA_centerloss_dbscan0.4.py
 
+./bin/jman submit --name CELEB-0.4 --repeat 1 --queue lgpu \
+./bin/bob_tf_train_generic \
+./bob/bio/face_ongoing/configs/cnn/resnet_inception_v2/MSCELEBA_crossentropy_dbscan0.4_GRAY.py
+
 
 
 ###
@@ -31,10 +35,15 @@
 
 #sleep 1800
 
-./bin/jman submit --name E.CELEB-0.4 --queue q1d --io-big \
- --environment="LD_LIBRARY_PATH=/idiap/user/tpereira/cuda/cuda-8.0/lib64:/idiap/user/tpereira/cuda/cudnn-8.0-linux-x64-v5.1/lib64:/idiap/user/tpereira/cuda/cuda-8.0" -- \
-./bin/bob_tf_eval_generic \
-  ./bob/bio/face_ongoing/configs/cnn/resnet_inception_v2/MSCELEBA_centerloss_dbscan0.4.py
+#./bin/jman submit --name E.CELEB-0.4 --queue q1d --io-big \
+# --environment="LD_LIBRARY_PATH=/idiap/user/tpereira/cuda/cuda-8.0/lib64:/idiap/user/tpereira/cuda/cudnn-8.0-linux-x64-v5.1/lib64:/idiap/user/tpereira/cuda/cuda-8.0" -- \
+#./bin/bob_tf_eval_generic \
+#  ./bob/bio/face_ongoing/configs/cnn/resnet_inception_v2/MSCELEBA_centerloss_dbscan0.4.py
 
+
+#./bin/jman submit --name E.CELEB-0.4 --queue q1d --io-big \
+# --environment="LD_LIBRARY_PATH=/idiap/user/tpereira/cuda/cuda-8.0/lib64:/idiap/user/tpereira/cuda/cudnn-8.0-linux-x64-v5.1/lib64:/idiap/user/tpereira/cuda/cuda-8.0" -- \
+# ./bin/bob_tf_eval_generic \
+# ./bob/bio/face_ongoing/configs/cnn/resnet_inception_v2/MSCELEBA_crossentropy_dbscan0.4_GRAY.py
 
 
