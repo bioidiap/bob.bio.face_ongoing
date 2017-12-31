@@ -38,8 +38,8 @@ inception_resnet_v2_casia_webface_centerloss      = "/idiap/temp/tpereira/casia_
 inception_resnet_v2_casia_webface_centerloss_gray = "/idiap/temp/tpereira/casia_webface/new_tf_format/official_checkpoints/inception_resnet_v2_gray/centerloss_alpha-0.95_factor-0.02_lr-0.1/"
 
 inception_resnet_v2_casia_webface_crossentropy      = "/idiap/temp/tpereira/casia_webface/new_tf_format/inception_resnet_v2/official_checkpoints/crossentropy_rgb/"
-inception_resnet_v2_casia_webface_crossentropy_gray = "/idiap/temp/tpereira/casia_webface/new_tf_format/inception_resnet_v2/official_checkpoints/crossentropy_gray/"
-
+#inception_resnet_v2_casia_webface_crossentropy_gray = "/idiap/temp/tpereira/casia_webface/new_tf_format/inception_resnet_v2/official_checkpoints/crossentropy_gray/"
+inception_resnet_v2_casia_webface_crossentropy_gray = "/idiap/temp/tpereira/casia_webface/new_tf_format/official_checkpoints/inception_resnet_v2_gray/crossentropy"
 
 inception_resnet_v1_casia_webface_crossentropy_tantriggs = "/idiap/temp/tpereira/casia_webface/new_tf_format/inception_resnet_v1/official_checkpoints/cross_entropy_tantriggs/"
 
