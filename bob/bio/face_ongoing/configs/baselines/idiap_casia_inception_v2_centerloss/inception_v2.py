@@ -10,7 +10,7 @@ from bob.bio.base.extractor import Extractor
 import numpy
 
 
-model_filename = inception_resnet_v2_casia_webface
+model_filename = inception_resnet_v2_casia_webface_centerloss
 
 
 class TensorflowEmbedding(Extractor):

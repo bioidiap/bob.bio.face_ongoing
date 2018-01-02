@@ -6,13 +6,13 @@ import os
 import tensorflow as tf
 
 
-learning_rate = 0.01
+learning_rate = 0.001
 data_shape = (182, 182, 3)  # size of atnt images
 output_shape = (160, 160)
 data_type = tf.uint8
 batch_size = 16
 validation_batch_size = 250
-epochs = 4
+epochs = 2
 n_classes = 10575
 embedding_validation = True
 
