@@ -8,20 +8,20 @@ import tensorflow as tf
 
 
 learning_rate = 0.1
-data_shape = (182, 182, 2)
+data_shape = (182, 182, 3)
 output_shape = (160, 160)
 data_type = tf.uint8
 batch_size = 16
 validation_batch_size = 250
-epochs = 5
+epochs = 4
 n_classes = 10575
 embedding_validation = True
 
 steps = 2000000
 
-model_dir = "/idiap/temp/tpereira/casia_webface/new_tf_format/inception_resnet_v1/cross_entropy_rgb"
-tf_record_path = "/idiap/project/hface/databases/tfrecords/casia_webface/RGB/"
-tf_record_path_validation = "/idiap/project/hface/databases/tfrecords/lfw/182x/RGB+TanTriggs/"
+model_dir = "/idiap/temp/tpereira/casia_webface/new_tf_format/inception_resnet_v1/crossentropy_rgb"
+tf_record_path = "/idiap/project/hface/databases/tfrecords/casia_webface/182x/RGB"
+tf_record_path_validation = "/idiap/project/hface/databases/tfrecords/lfw/182x/RGB"
 
 
 # Creating the tf record
@@ -52,9 +52,12 @@ def eval_input_fn():
 
 run_config = tf.estimator.RunConfig()
 run_config = run_config.replace(save_checkpoints_steps=2000)
+
+#tf.train.AdagradOptimizer(learning_rate)
+optimizer = tf.train.RMSPropOptimizer(learning_rate, decay=0.9, momentum=0.9, epsilon=1.0)
 estimator = Logits(model_dir=model_dir,
                    architecture=inception_resnet_v1,
-                   optimizer=tf.train.AdagradOptimizer(learning_rate),
+                   optimizer=optimizer,
                    n_classes=n_classes,
                    embedding_validation=embedding_validation,
                    validation_batch_size=validation_batch_size,
@@ -67,4 +70,3 @@ hooks = [LoggerHookEstimator(estimator, 16, 300),
                                    output_dir=model_dir,
                                    scaffold=tf.train.Scaffold(),
                                    summary_writer=tf.summary.FileWriter(model_dir) )]
-

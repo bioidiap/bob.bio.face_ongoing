@@ -1,10 +1,10 @@
-
 ./bin/jman submit --name CA-v1 --repeat 1 --queue gpu \
 ./bin/bob_tf_train_generic ./bob/bio/face_ongoing/configs/cnn/resnet_inception_v1/CASIA_centerloss.py
 
 
-#./bin/jman submit --name CASIA-v1-TT --repeat 1 --queue gpu \
-#./bin/bob_tf_train_generic /idiap/user/tpereira/gitlab/bob/bob.bio.face-ongoing/bob/bio/face_ongoing/configs/cnn/resnet_inception_v1/CASIA_cross_entropy_TAN-TRIGGS.py
+./bin/jman submit --name CASIA-v1-TT --repeat 1 --queue gpu \
+./bin/bob_tf_train_generic /idiap/user/tpereira/gitlab/bob/bob.bio.face-ongoing/bob/bio/face_ongoing/configs/cnn/resnet_inception_v1/CASIA_cross_entropy_TAN-TRIGGS.py
+
 #
 ###
 # EVALUATE
