@@ -20,7 +20,7 @@ embedding_validation = True
 steps = 2000000
 
 model_dir = "/idiap/temp/tpereira/casia_webface/new_tf_format/inception_resnet_v1/crossentropy_tantriggs"
-tf_record_path = "/idiap/project/hface/databases/tfrecords/casia_webface/182x/"
+tf_record_path = "/idiap/project/hface/databases/tfrecords/casia_webface/182x/RGB+TanTriggs/"
 tf_record_path_validation = "/idiap/project/hface/databases/tfrecords/lfw/182x/RGB+TanTriggs/"
 
 
