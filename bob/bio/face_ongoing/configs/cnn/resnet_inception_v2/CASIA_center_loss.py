@@ -1,4 +1,4 @@
-from bob.learn.tensorflow.network import inception_resnet_v2
+from bob.learn.tensorflow.network import inception_resnet_v2_batch_norm
 from bob.learn.tensorflow.estimators import LogitsCenterLoss
 from bob.learn.tensorflow.dataset.tfrecords import batch_data_and_labels_image_augmentation, shuffle_data_and_labels_image_augmentation
 from bob.learn.tensorflow.utils.hooks import LoggerHookEstimator
@@ -6,7 +6,7 @@ import os
 import tensorflow as tf
 
 
-learning_rate = 0.1
+learning_rate = 0.01
 data_shape = (182, 182, 3)  # size of atnt images
 output_shape = (160, 160)
 data_type = tf.uint8
@@ -58,7 +58,7 @@ run_config = run_config.replace(save_checkpoints_steps=2000)
        
 optimizer = tf.train.RMSPropOptimizer(learning_rate, decay=0.9, momentum=0.9, epsilon=1.0) 
 estimator = LogitsCenterLoss(model_dir=model_dir,
-                             architecture=inception_resnet_v2,
+                             architecture=inception_resnet_v2_batch_norm,
                              optimizer=optimizer,
                              n_classes=n_classes,
                              embedding_validation=embedding_validation,
