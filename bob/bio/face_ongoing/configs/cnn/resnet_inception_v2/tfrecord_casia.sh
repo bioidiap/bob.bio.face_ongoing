@@ -8,13 +8,19 @@
 # ./bob/bio/face_ongoing/configs/cnn/resnet_inception_v2/CASIA_crossentropy_RMSPROP.py 
 
 
+####
+
+./bin/jman submit --name CA-CE-G --repeat 1  --queue gpu -- \
+ ./bin/bob_tf_train_generic \
+ ./bob/bio/face_ongoing/configs/cnn/resnet_inception_v2/CASIA_center_loss_noBatchNorm_GRAY.py
+
 
 
 ####
 
-./bin/jman submit --name CA-CE --repeat 1  --queue gpu -- \
- ./bin/bob_tf_train_generic \
- ./bob/bio/face_ongoing/configs/cnn/resnet_inception_v2/CASIA_center_loss.py
+#./bin/jman submit --name CA-CE --repeat 1  --queue gpu -- \
+# ./bin/bob_tf_train_generic \
+# ./bob/bio/face_ongoing/configs/cnn/resnet_inception_v2/CASIA_center_loss.py
 
 
 
