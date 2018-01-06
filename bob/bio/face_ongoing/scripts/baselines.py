@@ -46,23 +46,26 @@ base_paths = pkg_resources.resource_filename("bob.bio.face_ongoing",
 
 from .registered_baselines import all_baselines, resources
 
+# IJBA protocols
 ijba_comparison_protocols = ["compare_split{0}".format(i) for i in range(1, 11)]
 ijba_search_protocols = ["search_split{0}".format(i) for i in range(1, 11)]
+
+# LFW protocols
+lfw_protocols = ["fold{0}".format(i) for i in range(1, 11)]
 
 
 def trigger_verify(preprocessor, extractor, database, groups, sub_directory, protocol=None,
                    preprocessed_directory=None, extracted_directory=None):
     
-
     configs  = load([base_paths])
     parameters = [
         base_paths,
         preprocessor,
         extractor,
         '-d', database,
+        '-g', 'demanding',
         '-a', "distance-cosine",
         '-vvv',
-        '-g', 'demanding',
         '--temp-directory', configs.temp_dir,
         '--result-directory', configs.results_dir,
         '--sub-directory', sub_directory,
@@ -112,6 +115,25 @@ def run_cnn_baseline(baseline, database=resources["databases"].keys()):
                                         preprocessed_directory=os.path.join(configs.temp_dir, first_subdir, "preprocessed"),
                                         extracted_directory=os.path.join(configs.temp_dir, first_subdir, "extracted"))
             verify(parameters)
+            
+
+    if "lfw" in database:
+        first_subdir = os.path.join("LFW", resources[baseline]["name"], lfw_protocols[0])
+        for p in lfw_protocols:
+            import tensorflow as tf
+            tf.reset_default_graph()
+
+            sub_directory = os.path.join("LFW", resources[baseline]["name"], p)
+            parameters = trigger_verify(resources[baseline]["lfw_crop"],
+                                        resources[baseline]["extractor"],
+                                        resources["databases"]["lfw"],
+                                        ["eval"],
+                                        sub_directory,
+                                        protocol=p,
+                                        preprocessed_directory=os.path.join(configs.temp_dir, first_subdir, "preprocessed"),
+                                        extracted_directory=os.path.join(configs.temp_dir, first_subdir, "extracted"))                                        
+            verify(parameters)
+            
             
     if "ijbb" in database:
         import tensorflow as tf

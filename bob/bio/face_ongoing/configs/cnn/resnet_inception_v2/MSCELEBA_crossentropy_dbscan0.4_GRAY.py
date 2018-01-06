@@ -7,13 +7,13 @@ import tensorflow as tf
 from bob.learn.tensorflow.loss import mean_cross_entropy_loss
 
 
-learning_rate = 0.1
+learning_rate = 0.001
 data_shape = (182, 182, 3)  # size of atnt images
 output_shape = (160, 160)
 data_type = tf.uint8
 batch_size = 16
 validation_batch_size = 250
-epochs = 5
+epochs = 1
 n_classes = 59354
 embedding_validation = True
 

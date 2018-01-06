@@ -6,13 +6,13 @@ import os
 import tensorflow as tf
 
 
-learning_rate = 0.001
+learning_rate = 0.1
 data_shape = (182, 182, 3)  # size of atnt images
 output_shape = (160, 160)
 data_type = tf.uint8
-batch_size = 16
+batch_size = 90
 validation_batch_size = 250
-epochs = 2
+epochs = 4
 n_classes = 10575
 embedding_validation = True
 
@@ -20,7 +20,7 @@ alpha=0.90
 factor=0.02
 steps = 2000000
 
-model_dir = "/idiap/temp/tpereira/casia_webface/new_tf_format/inception_resnet_v2/centerloss_alpha-0.90_factor-0.02"
+model_dir = "/idiap/temp/tpereira/casia_webface/new_tf_format/inception_resnet_v2/centerloss_alpha-0.90_factor-0.02_batch90"
 tf_record_path = "/idiap/project/hface/databases/tfrecords/casia_webface/182x/RGB"
 tf_record_path_validation = "/idiap/project/hface/databases/tfrecords/lfw/182x/RGB"
 
