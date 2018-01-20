@@ -80,43 +80,6 @@ The following command lines triggers, respectivelly, the sequence of verificatio
  $ ./bin/bob_faceongoing_baselines.py --baselines facenet_msceleba_inception_v1 --databases ijba
  $ ./bin/bob_ijba_collect_results.py [MY-PATH] -r comparison
  
-Search protocols
-----------------
-
-Follow bellow the results using DIR (Detection Identification Rate) under different values of FAR (False Alarm Rate).
-
-  +----------------------+----------------------+--------------------------+
-  | DIR% (R=1, FAR=0.1)  | DIR% (R=1, FAR=0.01) | split                    |
-  +======================+======================+==========================+
-  |51.118                |28.355                |split 0                   |
-  +----------------------+----------------------+--------------------------+
-  |52.741                |31.146                |split 1                   |
-  +----------------------+----------------------+--------------------------+
-  |53.865                |28.595                |split 2                   |
-  +----------------------+----------------------+--------------------------+
-  |49.431                |27.642                |split 3                   |
-  +----------------------+----------------------+--------------------------+
-  |43.342                |14.758                |split 4                   |
-  +----------------------+----------------------+--------------------------+
-  |56.591                |31.544                |split 5                   |
-  +----------------------+----------------------+--------------------------+
-  |46.507                |26.93                 |split 6                   |
-  +----------------------+----------------------+--------------------------+
-  |51.214                |26.233                |split 7                   |
-  +----------------------+----------------------+--------------------------+
-  |51.118                |30.075                |split 8                   |
-  +----------------------+----------------------+--------------------------+
-  |51.118                |28.355                |split 9                   |
-  +----------------------+----------------------+--------------------------+
-  |**50.7  (3.51  )**    |**27.36 (4.51  )**    |mean(std)                 |
-  +----------------------+----------------------+--------------------------+
-
-
-The following command line triggers the sequence of verification experiments::
-
- $ ./bin/bob_faceongoing_baselines.py --baselines facenet_msceleba_inception_v1 --databases ijba
- $ ./bin/bob_ijba_collect_results.py [MY-PATH] -r search
-
 
 IJB-B
 *****
@@ -137,6 +100,26 @@ The following command line triggers the sequence of verification experiments::
 
  $ ./bin/bob_faceongoing_baselines.py --baselines facenet_msceleba_inception_v1 --databases ijbb
  $ ./bin/bob_ijba_collect_results.py [MY-PATH] -r comparison
+
+
+
+LFW
+***
+
+This section presents the results for LFW 10 fold:
+
+  +----------------+
+  | FRR (FAR 0.01) |
+  +================+
+  | 98.13% (1.06)  |
+  +----------------+
+
+
+The following command lines trigger the verification experiment using mobio-male protocol and the results computation (in terms of HTER)
+repectivelly::
+
+  $ ./bin/bob_faceongoing_baselines.py --baselines facenet_msceleba_inception_v1 --databases lfw
+
 
 
 
