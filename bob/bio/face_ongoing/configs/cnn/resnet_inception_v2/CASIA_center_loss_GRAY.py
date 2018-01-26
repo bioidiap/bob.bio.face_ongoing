@@ -1,4 +1,4 @@
-from bob.learn.tensorflow.network import inception_resnet_v2
+from bob.learn.tensorflow.network import inception_resnet_v2_batch_norm
 from bob.learn.tensorflow.estimators import LogitsCenterLoss
 from bob.learn.tensorflow.dataset.tfrecords import batch_data_and_labels_image_augmentation, shuffle_data_and_labels_image_augmentation
 from bob.learn.tensorflow.utils.hooks import LoggerHookEstimator
