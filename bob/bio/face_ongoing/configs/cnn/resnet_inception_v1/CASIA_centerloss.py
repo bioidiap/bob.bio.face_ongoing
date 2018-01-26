@@ -7,14 +7,14 @@ import os
 import tensorflow as tf
 
 
-learning_rate = 0.01
+learning_rate = 0.1
 data_shape = (182, 182, 3)
 output_shape = (160, 160)
 data_type = tf.uint8
 batch_size = 16
 validation_batch_size = 250
-epochs = 4
-n_classes = 10575
+epochs = 12
+n_classes = 10574
 embedding_validation = True
 
 alpha = 0.9
