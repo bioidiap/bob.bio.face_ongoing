@@ -7,8 +7,15 @@ import pkg_resources
 all_baselines = ["idiap_msceleba_inception_v2",
                  "idiap_msceleba_inception_v2_gray",
                  "facenet_msceleba_inception_v1",
+                 "facenet_msceleba_inception_v2",
+
                  "idiap_casia_inception_v2_centerloss",
+                 "idiap_casia_inception_v1_centerloss",
+
                  "idiap_casia_inception_v2_centerloss_gray",
+                 "idiap_casia_inception_v2_centerloss_gray_staging",
+                 "idiap_casia_inception_v1_centerloss_gray",
+                 
                  "idiap_casia_inception_v2_crossentropy",
                  "idiap_casia_inception_v2_crossentropy_gray",                 
                  "vgg16",
@@ -46,6 +53,18 @@ resources["idiap_casia_inception_v2_centerloss_gray"]["name"] = "idiap_casia_inc
 resources["idiap_casia_inception_v2_centerloss_gray"]["extractor"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2_centerloss_gray/inception_v2.py")
 resources["idiap_casia_inception_v2_centerloss_gray"]["mobio_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2_centerloss_gray/crop_mobio.py")
 resources["idiap_casia_inception_v2_centerloss_gray"]["ijba_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2_centerloss_gray/crop_ijba.py")
+resources["idiap_casia_inception_v2_centerloss_gray"]["lfw_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2_centerloss_gray/crop_lfw.py")
+
+
+
+# idiap_casia_inception_v2_gray
+resources["idiap_casia_inception_v2_centerloss_gray_staging"] = dict()
+resources["idiap_casia_inception_v2_centerloss_gray_staging"]["name"] = "idiap_casia_inception_v2_centerloss_gray_staging"
+resources["idiap_casia_inception_v2_centerloss_gray_staging"]["extractor"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2_centerloss_gray/inception_v2_staging.py")
+resources["idiap_casia_inception_v2_centerloss_gray_staging"]["mobio_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2_centerloss_gray/crop_mobio.py")
+resources["idiap_casia_inception_v2_centerloss_gray_staging"]["ijba_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2_centerloss_gray/crop_ijba.py")
+
+
 
 # idiap_casia_inception_v2
 resources["idiap_casia_inception_v2_centerloss"] = dict()
@@ -72,6 +91,7 @@ resources["idiap_casia_inception_v2_crossentropy_gray"]["mobio_crop"] = pkg_reso
 resources["idiap_casia_inception_v2_crossentropy_gray"]["ijba_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2_centerloss_gray/crop_ijba.py")
 
 
+
 # idiap_casia_inception_v1 + TanTriggs
 resources["idiap_casia_inception_v1_crossentropy_tantriggs"] = dict()
 resources["idiap_casia_inception_v1_crossentropy_tantriggs"]["name"] = "idiap_casia_inception_v1_crossentropy_tantriggs"
@@ -79,6 +99,24 @@ resources["idiap_casia_inception_v1_crossentropy_tantriggs"]["extractor"] = pkg_
 resources["idiap_casia_inception_v1_crossentropy_tantriggs"]["mobio_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v1_crossentropy_tantriggs/crop_mobio.py")
 resources["idiap_casia_inception_v1_crossentropy_tantriggs"]["ijba_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v1_crossentropy_tantriggs/crop_ijba.py")
 
+
+
+# idiap_casia_inception_v1
+resources["idiap_casia_inception_v1_centerloss"] = dict()
+resources["idiap_casia_inception_v1_centerloss"]["name"] = "idiap_casia_inception_v1_centerloss"
+resources["idiap_casia_inception_v1_centerloss"]["extractor"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v1_centerloss/inception_v1.py")
+resources["idiap_casia_inception_v1_centerloss"]["mobio_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2_centerloss/crop_mobio.py")
+resources["idiap_casia_inception_v1_centerloss"]["ijba_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2_centerloss/crop_ijba.py")
+resources["idiap_casia_inception_v1_centerloss"]["lfw_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2_centerloss/crop_lfw.py")
+
+
+# idiap_casia_inception_v1
+resources["idiap_casia_inception_v1_centerloss_gray"] = dict()
+resources["idiap_casia_inception_v1_centerloss_gray"]["name"] = "idiap_casia_inception_v1_centerloss_gray"
+resources["idiap_casia_inception_v1_centerloss_gray"]["extractor"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v1_centerloss_gray/inception_v1.py")
+resources["idiap_casia_inception_v1_centerloss_gray"]["mobio_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2_centerloss_gray/crop_mobio.py")
+resources["idiap_casia_inception_v1_centerloss_gray"]["ijba_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2_centerloss_gray/crop_ijba.py")
+resources["idiap_casia_inception_v1_centerloss_gray"]["lfw_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2_centerloss_gray/crop_lfw.py")
 
 
 # vgg-16
@@ -95,6 +133,14 @@ resources["facenet_msceleba_inception_v1"]["extractor"] = pkg_resources.resource
 resources["facenet_msceleba_inception_v1"]["mobio_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/facenet_msceleba_inception_v1/crop_mobio.py")
 resources["facenet_msceleba_inception_v1"]["ijba_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/facenet_msceleba_inception_v1/crop_ijba.py")
 resources["facenet_msceleba_inception_v1"]["lfw_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2_centerloss/crop_lfw.py")
+
+resources["facenet_msceleba_inception_v2"] = dict()
+resources["facenet_msceleba_inception_v2"]["name"] = "facenet_msceleba_inception_v2"
+resources["facenet_msceleba_inception_v2"]["extractor"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/facenet_msceleba_inception_v2/inception_v2.py")
+resources["facenet_msceleba_inception_v2"]["mobio_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/facenet_msceleba_inception_v1/crop_mobio.py")
+resources["facenet_msceleba_inception_v2"]["ijba_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/facenet_msceleba_inception_v1/crop_ijba.py")
+resources["facenet_msceleba_inception_v2"]["lfw_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/idiap_casia_inception_v2_centerloss/crop_lfw.py")
+
 
 # idiap_msceleba_inception_v2_facenet_prunning
 resources["idiap_msceleba_inception_v2_facenet_prunning"] = dict()

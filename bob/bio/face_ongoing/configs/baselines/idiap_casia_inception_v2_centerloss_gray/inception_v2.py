@@ -4,7 +4,7 @@
 
 import bob.ip.tensorflow_extractor
 import bob.bio.face
-from bob.learn.tensorflow.network import inception_resnet_v2
+from bob.learn.tensorflow.network import inception_resnet_v2_batch_norm
 import tensorflow as tf
 from bob.bio.base.extractor import Extractor
 import numpy
@@ -64,7 +64,7 @@ class TensorflowEmbedding(Extractor):
 inputs = tf.placeholder(tf.float32, shape=(1, 160, 160, 1))
 
 # Taking the embedding
-prelogits = inception_resnet_v2(tf.stack([tf.image.per_image_standardization(i) for i in tf.unstack(inputs)]), mode=tf.estimator.ModeKeys.PREDICT)[0]
+prelogits = inception_resnet_v2_batch_norm(tf.stack([tf.image.per_image_standardization(i) for i in tf.unstack(inputs)]), mode=tf.estimator.ModeKeys.PREDICT)[0]
 embedding = tf.nn.l2_normalize(prelogits, dim=1, name="embedding")
 
 extractor = TensorflowEmbedding(bob.ip.tensorflow_extractor.Extractor(model_filename, inputs, embedding))

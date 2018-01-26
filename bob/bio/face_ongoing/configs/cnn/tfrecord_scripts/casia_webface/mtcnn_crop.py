@@ -36,14 +36,16 @@ CLIENT_IDS = (str(f.client_id) for f in database.all_files())
 CLIENT_IDS = list(set(CLIENT_IDS))
 CLIENT_IDS = dict(zip(CLIENT_IDS, range(len(CLIENT_IDS))))
 
+
 def file_to_label(f):
     return CLIENT_IDS[str(f.client_id)]
 
 
 #/idiap/temp/tpereira/databases/casia_webface/182x/raw_data_onlygood
 data_dir = "/idiap/temp/tpereira/databases/casia_webface/182x/raw_data_onlygood/mtcnn-crop/preprocessed/"
+#data_dir = "/idiap/temp/tpereira/databases/casia_webface/182x/raw_data_onlygood/mtcnn-crop/preprocessed_jpg/"
 #output = "/idiap/temp/tpereira/databases/casia_webface/182x/tfrecord_onlygood_newformat"
-output = "/idiap/project/hface/databases/tfrecords/casia_webface/182x/tfrecord_onlygood_newformat"
+output = "/idiap/project/hface/databases/tfrecords/casia_webface/182x/RGB-10574/casia.tfrecord"
 
 
 data_extension = ".hdf5"

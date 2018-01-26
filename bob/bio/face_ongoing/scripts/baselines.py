@@ -53,7 +53,6 @@ ijba_search_protocols = ["search_split{0}".format(i) for i in range(1, 11)]
 # LFW protocols
 lfw_protocols = ["fold{0}".format(i) for i in range(1, 11)]
 
-
 def trigger_verify(preprocessor, extractor, database, groups, sub_directory, protocol=None,
                    preprocessed_directory=None, extracted_directory=None):
     
@@ -65,6 +64,7 @@ def trigger_verify(preprocessor, extractor, database, groups, sub_directory, pro
         '-d', database,
         '-g', 'demanding',
         '-a', "distance-cosine",
+        '-G','submitted_experiments.sql3',
         '-vvv',
         '--temp-directory', configs.temp_dir,
         '--result-directory', configs.results_dir,

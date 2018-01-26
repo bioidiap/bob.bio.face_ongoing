@@ -10,24 +10,26 @@
 
 ####
 
-./bin/jman submit --name CA-CE-G --repeat 1  --queue gpu -- \
- ./bin/bob_tf_train_generic \
- ./bob/bio/face_ongoing/configs/cnn/resnet_inception_v2/CASIA_center_loss_noBatchNorm_GRAY.py
+#./bin/jman submit --name CA-CE-G --repeat 1  --queue gpu -- \
+# ./bin/bob_tf_train_generic \
+# ./bob/bio/face_ongoing/configs/cnn/resnet_inception_v2/CASIA_center_loss_noBatchNorm_GRAY.py
 
+
+#./bin/jman submit --name E.CA-CG --queue q1d --io-big --environment="LD_LIBRARY_PATH=/idiap/user/tpereira/cuda/cuda-8.0/lib64:/idiap/user/tpereira/cuda/cudnn-8.0-linux-x64-v5.1/lib64:/idiap/user/tpereira/cuda/cuda-8.0" -- \
+# ./bin/bob_tf_eval_generic ./bob/bio/face_ongoing/configs/cnn/resnet_inception_v2/CASIA_center_loss_noBatchNorm_GRAY.py
 
 
 ####
 
-#./bin/jman submit --name CA-CE --repeat 1  --queue gpu -- \
-# ./bin/bob_tf_train_generic \
+#./bin/jman submit --name CA-CE-0001 --repeat 1  --queue gpu -- \
+#./bin/bob_tf_train_generic \
 # ./bob/bio/face_ongoing/configs/cnn/resnet_inception_v2/CASIA_center_loss.py
 
 
-
-#./bin/jman submit --name E.CA-CE --queue q1d --io-big \
-# --environment="LD_LIBRARY_PATH=/idiap/user/tpereira/cuda/cuda-8.0/lib64:/idiap/user/tpereira/cuda/cudnn-8.0-linux-x64-v5.1/lib64:/idiap/user/tpereira/cuda/cuda-8.0" -- \
-#./bin/bob_tf_eval_generic \
-#  ./bob/bio/face_ongoing/configs/cnn/resnet_inception_v2/CASIA_center_loss.py
+./bin/jman submit --name E.CA-CE --queue q1d --io-big \
+ --environment="LD_LIBRARY_PATH=/idiap/user/tpereira/cuda/cuda-8.0/lib64:/idiap/user/tpereira/cuda/cudnn-8.0-linux-x64-v5.1/lib64:/idiap/user/tpereira/cuda/cuda-8.0" -- \
+./bin/bob_tf_eval_generic \
+ ./bob/bio/face_ongoing/configs/cnn/resnet_inception_v2/CASIA_center_loss.py
 
 
 
