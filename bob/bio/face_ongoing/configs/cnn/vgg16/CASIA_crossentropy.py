@@ -1,28 +1,26 @@
-from bob.learn.tensorflow.network import inception_resnet_v2_batch_norm
-from bob.learn.tensorflow.estimators import LogitsCenterLoss
+from bob.learn.tensorflow.network import vgg_16
+from bob.learn.tensorflow.estimators import Logits
 from bob.learn.tensorflow.dataset.tfrecords import batch_data_and_labels_image_augmentation, shuffle_data_and_labels_image_augmentation
 from bob.learn.tensorflow.utils.hooks import LoggerHookEstimator
+from bob.learn.tensorflow.loss import mean_cross_entropy_loss
 import os
 import tensorflow as tf
 
-
-learning_rate = 0.1
-data_shape = (182, 182, 3)  # size of atnt images
-output_shape = (160, 160)
+learning_rate = 0.01
+data_shape = (246, 246, 3)  # size of atnt images
+output_shape = (224, 224)
 data_type = tf.uint8
 batch_size = 16
-validation_batch_size = 250
-epochs = 1
+validation_batch_size = 60
+epochs = 10
 n_classes = 10575
 embedding_validation = True
 
-alpha=0.90
-factor=0.02
 steps = 2000000
 
-model_dir = "PATH"
-tf_record_path = "/idiap/project/hface/databases/tfrecords/casia_webface/182x/RGB"
-tf_record_path_validation = "/idiap/project/hface/databases/tfrecords/lfw/182x/RGB"
+model_dir = "/idiap/temp/tpereira/casia_webface/new_tf_format/vgg16/crossentropy"
+tf_record_path = "/idiap/project/hface/databases/tfrecords/casia_webface/246x/RGB/"
+tf_record_path_validation = "/idiap/project/hface/databases/tfrecords/lfw/246x/RGB/"
 
 
 # Creating the tf record
@@ -37,7 +35,7 @@ def train_input_fn():
                                                       random_contrast=False,
                                                       random_saturation=False,
                                                       per_image_normalization=True,
-                                                      gray_scale=True)
+                                                      gray_scale=False)
         
 
 def eval_input_fn():
@@ -48,27 +46,26 @@ def eval_input_fn():
                                                     random_contrast=False,
                                                     random_saturation=False,
                                                     per_image_normalization=True,
-                                                    gray_scale=True)
+                                                    gray_scale=False)
 
 
 run_config = tf.estimator.RunConfig()
 run_config = run_config.replace(save_checkpoints_steps=2000)
 
-#                             optimizer=tf.train.AdagradOptimizer(learning_rate),
-optimizer = tf.train.RMSPropOptimizer(learning_rate, decay=0.9, momentum=0.9, epsilon=1.0) 
-estimator = LogitsCenterLoss(model_dir=model_dir,
-                             architecture=inception_resnet_v2_batch_norm,
-                             optimizer=optimizer,
+#                             
+ 
+estimator = Logits(model_dir=model_dir,
+                             architecture=vgg_16,
+                             optimizer=tf.train.AdagradOptimizer(learning_rate),
                              n_classes=n_classes,
                              embedding_validation=embedding_validation,
                              validation_batch_size=validation_batch_size,
-                             alpha=alpha,
-                             factor=factor,
+                             loss_op=mean_cross_entropy_loss,
                              config=run_config)
 
 
 hooks = [LoggerHookEstimator(estimator, 16, 300),
-         tf.train.SummarySaverHook(save_steps=1000,
+         tf.train.SummarySaverHook(save_steps=50,
                                    output_dir=model_dir,
                                    scaffold=tf.train.Scaffold(),
                                    summary_writer=tf.summary.FileWriter(model_dir) )]

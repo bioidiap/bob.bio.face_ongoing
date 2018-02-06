@@ -71,7 +71,7 @@ inception_resnet_v1_casia_webface_crossentropy_tantriggs = "/idiap/temp/tpereira
 
 #facenet = "/idiap/project/hface/models/cnn/facenet/20170512-110547"
 #facenet = "/idiap/temp/tpereira/facenet/inception_v1/20180104-175138/"
-facenet = "/idiap/temp/tpereira/facenet/inception_v1/20180105-083835/"
+#facenet = "/idiap/temp/tpereira/facenet/inception_v1/20180105-083835/"
 #facenet_v2 = "/idiap/temp/tpereira/facenet/inception_v2/20180109-090826/"
 facenet_v2 = "/idiap/temp/tpereira/facenet/inception_v2_77plus/20180115-171413/"
 

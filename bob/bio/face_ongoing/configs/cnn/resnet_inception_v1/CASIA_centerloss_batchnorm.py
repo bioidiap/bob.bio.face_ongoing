@@ -1,27 +1,29 @@
-from bob.learn.tensorflow.network import inception_resnet_v2_batch_norm
+from bob.learn.tensorflow.network import inception_resnet_v1_batch_norm
 from bob.learn.tensorflow.estimators import LogitsCenterLoss
 from bob.learn.tensorflow.dataset.tfrecords import batch_data_and_labels_image_augmentation, shuffle_data_and_labels_image_augmentation
 from bob.learn.tensorflow.utils.hooks import LoggerHookEstimator
+from bob.learn.tensorflow.utils import reproducible
 import os
 import tensorflow as tf
 
 
-learning_rate = 0.1
-data_shape = (182, 182, 3)  # size of atnt images
+learning_rate = 0.0001
+data_shape = (182, 182, 3)
 output_shape = (160, 160)
 data_type = tf.uint8
-batch_size = 16
+batch_size = 90
 validation_batch_size = 250
 epochs = 1
-n_classes = 10575
+n_classes = 10574
 embedding_validation = True
 
-alpha=0.90
-factor=0.02
+alpha = 0.9
+factor = 0.02
 steps = 2000000
 
-model_dir = "PATH"
-tf_record_path = "/idiap/project/hface/databases/tfrecords/casia_webface/182x/RGB"
+model_dir = "/idiap/temp/tpereira/casia_webface/new_tf_format/inception_resnet_v1/centerloss_alpha-0.90_factor-0.02_NEW"
+tf_record_path = "/idiap/project/hface/databases/tfrecords/casia_webface/182x/RGB-10574/"
+#tf_record_path = "/idiap/project/hface/databases/tfrecords/casia_webface/182x/RGB"
 tf_record_path_validation = "/idiap/project/hface/databases/tfrecords/lfw/182x/RGB"
 
 
@@ -37,7 +39,7 @@ def train_input_fn():
                                                       random_contrast=False,
                                                       random_saturation=False,
                                                       per_image_normalization=True,
-                                                      gray_scale=True)
+                                                      gray_scale=False)
         
 
 def eval_input_fn():
@@ -48,16 +50,16 @@ def eval_input_fn():
                                                     random_contrast=False,
                                                     random_saturation=False,
                                                     per_image_normalization=True,
-                                                    gray_scale=True)
+                                                    gray_scale=False)
 
 
 run_config = tf.estimator.RunConfig()
 run_config = run_config.replace(save_checkpoints_steps=2000)
 
-#                             optimizer=tf.train.AdagradOptimizer(learning_rate),
-optimizer = tf.train.RMSPropOptimizer(learning_rate, decay=0.9, momentum=0.9, epsilon=1.0) 
+#tf.train.AdagradOptimizer(learning_rate)
+optimizer = tf.train.RMSPropOptimizer(learning_rate, decay=0.9, momentum=0.9, epsilon=1.0)
 estimator = LogitsCenterLoss(model_dir=model_dir,
-                             architecture=inception_resnet_v2_batch_norm,
+                             architecture=inception_resnet_v1_batch_norm,
                              optimizer=optimizer,
                              n_classes=n_classes,
                              embedding_validation=embedding_validation,

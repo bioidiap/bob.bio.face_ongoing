@@ -37,24 +37,22 @@ import os
 from bob.extension.config import load
 import pkg_resources
 from docopt import docopt
-from bob.bio.face.database import MobioBioDatabase
 from bob.bio.base.script.verify import main as verify
+from bob.bio.face_ongoing.baselines import get_all_baselines_by_type, get_all_baselines, get_all_databases
 
 
 base_paths = pkg_resources.resource_filename("bob.bio.face_ongoing",
                                              "configs/base_paths.py")
 
-from .registered_baselines import all_baselines, resources
 
-# IJBA protocols
-ijba_comparison_protocols = ["compare_split{0}".format(i) for i in range(1, 11)]
-ijba_search_protocols = ["search_split{0}".format(i) for i in range(1, 11)]
+all_baselines = get_all_baselines()
+all_databases = get_all_databases()
+all_baselines_by_type = get_all_baselines_by_type()
 
-# LFW protocols
-lfw_protocols = ["fold{0}".format(i) for i in range(1, 11)]
 
 def trigger_verify(preprocessor, extractor, database, groups, sub_directory, protocol=None,
                    preprocessed_directory=None, extracted_directory=None):
+        
     
     configs  = load([base_paths])
     parameters = [
@@ -83,76 +81,36 @@ def trigger_verify(preprocessor, extractor, database, groups, sub_directory, pro
     return parameters
 
 
-def run_cnn_baseline(baseline, database=resources["databases"].keys()):
+def run_cnn_baseline(baseline, database):
     configs  = load([base_paths])
 
-    # Triggering mobio
-    if "mobio" in database:
+    for p in all_databases[database].protocols:
         import tensorflow as tf
         tf.reset_default_graph()
 
-        parameters = trigger_verify(resources[baseline]["mobio_crop"],
-                                    resources[baseline]["extractor"],
-                                    "mobio-male",
-                                    ["dev", "eval"],
-                                    "MOBIO/"+resources[baseline]["name"],
-                                    protocol=None)
-        verify(parameters)
-
-    if "ijba" in database:
-        first_subdir = os.path.join("IJBA", resources[baseline]["name"], ijba_comparison_protocols[0])
-        for p in ijba_comparison_protocols:
-            import tensorflow as tf
-            tf.reset_default_graph()
-
-            sub_directory = os.path.join("IJBA", resources[baseline]["name"], p)
-            parameters = trigger_verify(resources[baseline]["ijba_crop"],
-                                        resources[baseline]["extractor"],
-                                        resources["databases"]["ijba"],
-                                        ["dev"],
-                                        sub_directory,
-                                        protocol=p,
-                                        preprocessed_directory=os.path.join(configs.temp_dir, first_subdir, "preprocessed"),
-                                        extracted_directory=os.path.join(configs.temp_dir, first_subdir, "extracted"))
-            verify(parameters)
+        sub_directory = os.path.join(all_databases[database].name, all_baselines[baseline].name, p)
+        # Taking care of the directories
+        if all_databases[database].preprocessed_directory is None:
+            preprocessed_directory = all_databases[database].preprocessed_directory
+        else:
+            preprocessed_directory = os.path.join(configs.temp_dir, all_databases[database].name, all_baselines[baseline].name,
+                                                  all_databases[database].preprocessed_directory)
             
-
-    if "lfw" in database:
-        first_subdir = os.path.join("LFW", resources[baseline]["name"], lfw_protocols[0])
-        for p in lfw_protocols:
-            import tensorflow as tf
-            tf.reset_default_graph()
-
-            sub_directory = os.path.join("LFW", resources[baseline]["name"], p)
-            parameters = trigger_verify(resources[baseline]["lfw_crop"],
-                                        resources[baseline]["extractor"],
-                                        resources["databases"]["lfw"],
-                                        ["eval"],
-                                        sub_directory,
-                                        protocol=p,
-                                        preprocessed_directory=os.path.join(configs.temp_dir, first_subdir, "preprocessed"),
-                                        extracted_directory=os.path.join(configs.temp_dir, first_subdir, "extracted"))                                        
-            verify(parameters)
-            
-            
-    if "ijbb" in database:
-        import tensorflow as tf
-        tf.reset_default_graph()
-
-        # Comparison protocol
-        p = "1-1"
-        sub_directory = os.path.join("IJBB", resources[baseline]["name"], p)
-
-        # Just to reuse in other experiments
-        first_sub_directory = sub_directory
-        parameters = trigger_verify(resources[baseline]["ijba_crop"],
-                                    resources[baseline]["extractor"],
-                                    resources["databases"]["ijbb"],
-                                    ["dev"],
+        # Taking care of the directories
+        if all_databases[database].extracted_directory is None:
+            extracted_directory = all_databases[database].extracted_directory
+        else:
+            extracted_directory = os.path.join(configs.temp_dir,  all_databases[database].name, all_baselines[baseline].name,
+                                               all_databases[database].extracted_directory)
+        
+        parameters = trigger_verify(all_baselines[baseline].preprocessors["{0}_crop".format(database)],
+                                    all_baselines[baseline].extractor,
+                                    all_databases[database].config,
+                                    all_databases[database].groups,
                                     sub_directory,
-                                    protocol="1:1",
-                                    preprocessed_directory=os.path.join(configs.temp_dir, first_sub_directory, "preprocessed"),
-                                    extracted_directory=os.path.join(configs.temp_dir, first_sub_directory, "extracted"))
+                                    protocol=p,
+                                    preprocessed_directory=preprocessed_directory,
+                                    extracted_directory=extracted_directory)
         verify(parameters)
 
 
@@ -163,30 +121,35 @@ def main():
         print("====================================")
         print("Follow all the registered baselines:")
         print("====================================")        
-        for a in all_baselines:
+        for a in all_databases:
             print("  - %s"%(a))
         print("\n")
 
         print("====================================")
         print("Follow all the registered databases:")
         print("====================================")
-        for a in resources["databases"]:
-            print("  - %s"%(a))
-        print("\n")
-
+        for a in all_baselines_by_type:
+            print("Baselines of the type: %s"%(a))
+            for b in all_baselines_by_type[a]:
+                print("  >> %s"%(b))
+            print("\n")
 
         exit()
     
     if args["--databases"] == "all":
-        database = resources["databases"].keys()
+        database = all_databases
     else:
-        database = args["--databases"]
+        database = [args["--databases"]]
 
     if args["--baselines"] == "all":
-        for b in all_baselines:
-            run_cnn_baseline(baseline=b, database=database)
+        baselines = all_baselines
     else:
-        run_cnn_baseline(baseline=args["--baselines"], database=database)
+        baselines = [args["--baselines"]]
+
+    # Triggering training for each baseline/database
+    for b in baselines:
+        for d in database:
+            run_cnn_baseline(baseline=b, database=d)
 
 
 if __name__ == "__main__":

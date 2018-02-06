@@ -13,6 +13,7 @@ In the next subsections we present the results/analysis of some experiments usin
 
    vgg16
    facenet
+   drgan
    idiap_resnet_msceleb
    idiap_resnet_casia_webface
    isv
