@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # vim: set fileencoding=utf-8 :
 
-
 import bob.bio.face
 from bob.bio.face.database import IJBABioDatabase
+from bob.extension import rc
 
-ijba_directory = "/idiap/resource/database/IJB-A/"
+ijba_directory = rc['ijba']
 
 database = IJBABioDatabase(
   original_directory=ijba_directory,

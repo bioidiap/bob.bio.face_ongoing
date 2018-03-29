@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 # vim: set fileencoding=utf-8 :
 
-
 import bob.bio.face
 from bob.bio.face.database import LFWBioDatabase
+from bob.extension import rc
 
-
-lfw_directory = "/idiap/resource/database/lfw/all_images"
+lfw_directory = rc['lfw']
 
 database = LFWBioDatabase(
     original_directory=lfw_directory,

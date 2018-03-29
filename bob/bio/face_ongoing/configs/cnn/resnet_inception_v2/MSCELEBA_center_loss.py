@@ -1,4 +1,4 @@
-from bob.learn.tensorflow.network import inception_resnet_v2
+from bob.learn.tensorflow.network import inception_resnet_v2_batch_norm
 from bob.learn.tensorflow.estimators import LogitsCenterLoss
 from bob.learn.tensorflow.dataset.tfrecords import batch_data_and_labels_image_augmentation, shuffle_data_and_labels_image_augmentation
 from bob.learn.tensorflow.utils.hooks import LoggerHookEstimator
@@ -6,23 +6,23 @@ import os
 import tensorflow as tf
 
 
-learning_rate = 0.001
+learning_rate = 0.01
 data_shape = (182, 182, 3)  # size of atnt images
 output_shape = (160, 160)
 data_type = tf.uint8
-batch_size = 16
+batch_size = 90
 validation_batch_size = 250
-epochs = 10
-n_classes = 81420
+epochs = 2
+n_classes = 92261
 embedding_validation = True
 
-alpha=0.95
+alpha=0.90
 factor=0.02
 steps = 2000000
 
-model_dir = "/idiap/temp/tpereira/msceleb/dbscan_face_prunning_facenet/resnet_inception_v2/centerloss_alpha-0.95_factor-0.02_lr-0.01"
-tf_record_path = "/idiap/project/hface/databases/tfrecords/msceleba/182x_dbscan_facenet_0.5/"
-tf_record_path_validation = "/idiap/project/hface/databases/tfrecords/lfw/182x/"
+model_dir = "/idiap/temp/tpereira/msceleb/dbscan_face_prunning_facenet/resnet_inception_v2/centerloss_alpha-0.90_factor-0.02-tiago"
+tf_record_path = "/idiap/project/hface/databases/tfrecords/msceleba/182x_dbscan_facenet/"
+tf_record_path_validation = "/idiap/project/hface/databases/tfrecords/lfw/182x/RGB/"
 
 
 # Creating the tf record
@@ -50,9 +50,12 @@ def eval_input_fn():
 
 run_config = tf.estimator.RunConfig()
 run_config = run_config.replace(save_checkpoints_steps=2000)
+
+#tf.train.AdagradOptimizer(learning_rate)
+optimizer = tf.train.RMSPropOptimizer(learning_rate, decay=0.9, momentum=0.9, epsilon=1.0) 
 estimator = LogitsCenterLoss(model_dir=model_dir,
-                             architecture=inception_resnet_v2,
-                             optimizer=tf.train.AdagradOptimizer(learning_rate),
+                             architecture=inception_resnet_v2_batch_norm,
+                             optimizer=optimizer,
                              n_classes=n_classes,
                              embedding_validation=embedding_validation,
                              validation_batch_size=validation_batch_size,

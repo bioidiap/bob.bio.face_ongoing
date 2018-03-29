@@ -2,20 +2,21 @@
 # vim: set fileencoding=utf-8 :
 # Tiago de Freitas Pereira <tiago.pereira@idiap.ch>
 
-import bob.ip.tensorflow_extractor
-import bob.bio.face
-from bob.learn.tensorflow.network import inception_resnet_v2
 import tensorflow as tf
+import bob.ip.tensorflow_extractor
 from bob.bio.base.extractor import Extractor
+import bob.io.image
 import numpy
 
 
-model_filename = inception_resnet_v2_casia_webface_crossentropy
-
-
 class TensorflowEmbedding(Extractor):
-
     """
+    bob.bio.base Extractor that does the necessary image transformation 
+    
+    **Parameters**
+      
+      tf_extractor: :py:class:`bob.ip.tensorflow_extractor.Extractor`
+        Class that loads the model
     """
 
     def __init__(
@@ -24,6 +25,7 @@ class TensorflowEmbedding(Extractor):
     ):
         Extractor.__init__(self, skip_extractor_training=True)
         self.tf_extractor = tf_extractor
+
 
     def __call__(self, image):
         """__call__(image) -> feature
@@ -57,14 +59,3 @@ class TensorflowEmbedding(Extractor):
 
     def load(*args, **kwargs): pass
 
-
-#########
-# Extraction
-#########
-inputs = tf.placeholder(tf.float32, shape=(1, 160, 160, 3))
-
-# Taking the embedding
-prelogits = inception_resnet_v2(tf.stack([tf.image.per_image_standardization(i) for i in tf.unstack(inputs)]), mode=tf.estimator.ModeKeys.PREDICT)[0]
-embedding = tf.nn.l2_normalize(prelogits, dim=1, name="embedding")
-
-extractor = TensorflowEmbedding(bob.ip.tensorflow_extractor.Extractor(model_filename, inputs, embedding))

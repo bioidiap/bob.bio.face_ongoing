@@ -39,10 +39,7 @@ import pkg_resources
 from docopt import docopt
 from bob.bio.base.script.verify import main as verify
 from bob.bio.face_ongoing.baselines import get_all_baselines_by_type, get_all_baselines, get_all_databases
-
-
-base_paths = pkg_resources.resource_filename("bob.bio.face_ongoing",
-                                             "configs/base_paths.py")
+from bob.extension import rc
 
 
 all_baselines = get_all_baselines()
@@ -52,20 +49,17 @@ all_baselines_by_type = get_all_baselines_by_type()
 
 def trigger_verify(preprocessor, extractor, database, groups, sub_directory, protocol=None,
                    preprocessed_directory=None, extracted_directory=None):
-        
-    
-    configs  = load([base_paths])
+            
     parameters = [
-        base_paths,
         preprocessor,
         extractor,
+        '-g', 'demanding',        
         '-d', database,
-        '-g', 'demanding',
         '-a', "distance-cosine",
         '-G','submitted_experiments.sql3',
         '-vvv',
-        '--temp-directory', configs.temp_dir,
-        '--result-directory', configs.results_dir,
+        '--temp-directory', rc['temp_dir'],
+        '--result-directory', rc['results_dir'],
         '--sub-directory', sub_directory,
         '--environment','LD_LIBRARY_PATH=/idiap/user/tpereira/cuda/cuda-8.0/lib64:/idiap/user/tpereira/cuda/cudnn-8.0-linux-x64-v5.1/lib64:/idiap/user/tpereira/cuda/cuda-8.0',
     ] + ['--groups'] + groups
@@ -82,7 +76,6 @@ def trigger_verify(preprocessor, extractor, database, groups, sub_directory, pro
 
 
 def run_cnn_baseline(baseline, database):
-    configs  = load([base_paths])
 
     for p in all_databases[database].protocols:
         import tensorflow as tf
