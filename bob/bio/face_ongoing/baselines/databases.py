@@ -56,7 +56,18 @@ class IJBB(Databases):
         self.groups = ["dev"]
         self.preprocessed_directory = os.path.join(self.protocols[0], "preprocessed")
         self.extracted_directory = os.path.join(self.protocols[0], "extracted")
-        
+
+
+class IJBC(Databases):
+
+    def __init__(self):
+        self.name = "ijbc"
+        self.config = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/databases/ijbc.py")
+        self.protocols = ["1:1"]
+        self.groups = ["dev"]
+        self.preprocessed_directory = os.path.join(self.protocols[0], "preprocessed")
+        self.extracted_directory = os.path.join(self.protocols[0], "extracted")
+
 
 class LFW(Databases):
 

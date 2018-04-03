@@ -49,17 +49,17 @@ all_baselines_by_type = get_all_baselines_by_type()
 
 def trigger_verify(preprocessor, extractor, database, groups, sub_directory, protocol=None,
                    preprocessed_directory=None, extracted_directory=None):
-            
+
     parameters = [
         preprocessor,
         extractor,
-        '-g', 'demanding',        
         '-d', database,
         '-a', "distance-cosine",
+        '-g', 'demanding',
         '-G','submitted_experiments.sql3',
         '-vvv',
-        '--temp-directory', rc['temp_dir'],
-        '--result-directory', rc['results_dir'],
+        '--temp-directory', str(rc['temp_dir']),
+        '--result-directory', str(rc['results_dir']),
         '--sub-directory', sub_directory,
         '--environment','LD_LIBRARY_PATH=/idiap/user/tpereira/cuda/cuda-8.0/lib64:/idiap/user/tpereira/cuda/cudnn-8.0-linux-x64-v5.1/lib64:/idiap/user/tpereira/cuda/cuda-8.0',
     ] + ['--groups'] + groups
@@ -81,19 +81,19 @@ def run_cnn_baseline(baseline, database):
         import tensorflow as tf
         tf.reset_default_graph()
 
-        sub_directory = os.path.join(all_databases[database].name, all_baselines[baseline].name, p)
+        sub_directory = os.path.join(all_databases[database].name, all_baselines[baseline].name, p.replace(":",""))
         # Taking care of the directories
         if all_databases[database].preprocessed_directory is None:
             preprocessed_directory = all_databases[database].preprocessed_directory
         else:
-            preprocessed_directory = os.path.join(configs.temp_dir, all_databases[database].name, all_baselines[baseline].name,
+            preprocessed_directory = os.path.join(rc['temp_dir'], all_databases[database].name, all_baselines[baseline].name,
                                                   all_databases[database].preprocessed_directory)
             
         # Taking care of the directories
         if all_databases[database].extracted_directory is None:
             extracted_directory = all_databases[database].extracted_directory
         else:
-            extracted_directory = os.path.join(configs.temp_dir,  all_databases[database].name, all_baselines[baseline].name,
+            extracted_directory = os.path.join(rc['temp_dir'],  all_databases[database].name, all_baselines[baseline].name,
                                                all_databases[database].extracted_directory)
         
         parameters = trigger_verify(all_baselines[baseline].preprocessors["{0}_crop".format(database)],
