@@ -20,4 +20,5 @@ class drgan(Baseline):
         self.preprocessors["mobio_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/drgan/crop_mobio.py")
         self.preprocessors["ijba_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/drgan/crop_ijba.py")
         self.preprocessors["lfw_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/drgan/crop_lfw.py")
+        self.preprocessors["ijbc_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/drgan/crop_ijba.py")
 
