@@ -26,7 +26,6 @@ requirements:
     - bob.bio.face
     - bob.bio.caffe_face
     - bob.ip.tensorflow_extractor
-    - bob.learn.tensorflow
     - scipy {{ scipy }}
   run:
     - python
