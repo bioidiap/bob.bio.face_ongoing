@@ -100,10 +100,11 @@ setup(
     # In this simple example we will create a single program that will print
     # the version of bob.
     entry_points={
-    
-      'console_scripts': [
-        'bob_faceongoing_baselines.py = bob.bio.face_ongoing.scripts.baselines:main',
+          
+      'bob.cli': [
+          'face_ongoing = bob.bio.face_ongoing.scripts.baselines:face_ongoing',
       ],
+      
 
     },
 

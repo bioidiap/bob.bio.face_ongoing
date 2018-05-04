@@ -31,7 +31,9 @@ requirements:
     - python
     - setuptools
     - scipy
-
+    - click
+    - click-plugins
+    - tabulate
 test:
   imports:
     - {{ name }}

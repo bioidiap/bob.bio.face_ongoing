@@ -21,3 +21,6 @@ dependencies:
 - bob.ip.caffe_extractor
 - bob.bio.caffe_face
 - sphinx_rtd_theme
+- torch == 0.3.1
+- pytorch 0.3  # [linux]
+- torchvision 0.1.8  # [linux]
