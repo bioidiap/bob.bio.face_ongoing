@@ -39,6 +39,9 @@ all_databases = get_all_databases()
 all_baselines_by_type = get_all_baselines_by_type()
 
 
+
+
+
 def trigger_verify(result_dir, temp_dir, preprocessor, extractor, database, groups, sub_directory, protocol=None,
                    preprocessed_directory=None, extracted_directory=None):
     
@@ -100,6 +103,7 @@ def run_cnn_baseline(baseline, database, result_dir, temp_dir):
                                     protocol=p,
                                     preprocessed_directory=preprocessed_directory,
                                     extracted_directory=extracted_directory)
+        
         verify(parameters)
 
 

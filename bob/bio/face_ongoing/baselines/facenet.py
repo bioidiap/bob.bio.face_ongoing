@@ -23,4 +23,5 @@ class facenet_msceleba_inception_v1(Baseline):
         self.preprocessors["ijba_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/inception_resnet_preprocessors/crop_ijba_rgb.py")
         self.preprocessors["lfw_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/inception_resnet_preprocessors/crop_lfw_rgb.py")
         self.preprocessors["ijbc_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/inception_resnet_preprocessors/crop_ijba_rgb.py")
+        self.preprocessors["casia_webface_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/inception_resnet_preprocessors/crop_casia_webface.py")
 

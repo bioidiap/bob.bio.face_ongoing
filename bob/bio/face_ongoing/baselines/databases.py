@@ -80,3 +80,13 @@ class LFW(Databases):
         self.extracted_directory = os.path.join(self.protocols[0], "extracted")
 
 
+class CasiaWebface(Databases):
+
+    def __init__(self):
+        self.name = "casia_webface"
+        self.config = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/databases/casia_webface.py")
+        self.protocols = ["number-all-split1", "number-all-split2", "number-all-split3"]
+        self.groups = ["dev"]
+        self.preprocessed_directory = os.path.join(self.protocols[0], "preprocessed")
+        self.extracted_directory = os.path.join(self.protocols[0], "extracted")
+
