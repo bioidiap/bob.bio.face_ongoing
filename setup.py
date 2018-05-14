@@ -110,6 +110,7 @@ setup(
           'facenet = bob.bio.face_ongoing.baselines.facenet:baseline',
           'drgan = bob.bio.face_ongoing.baselines.drgan:baseline',
           'cnn8 = bob.bio.face_ongoing.baselines.cnn8:baseline',
+          'casianet = bob.bio.face_ongoing.baselines.casianet:baseline',
 
           #OUR BASELINES
           'idiap_casia_inception_v2_centerloss_gray = bob.bio.face_ongoing.baselines.idiap_inception_v2:baseline_idiap_casia_inception_v2_centerloss_gray',
