@@ -7,7 +7,6 @@ package:
 
 build:
   entry_points:
-    - bob_faceongoing_baselines.py        = bob.bio.face_ongoing.scripts.baselines:main
   number: {{ environ.get('BOB_BUILD_NUMBER', 0) }}
   run_exports:
     - {{ pin_subpackage(name) }}
@@ -22,23 +21,20 @@ requirements:
   host:
     - python {{ python }}
     - setuptools {{ setuptools }}
-    - bob.bio.base
     - bob.bio.face
-    - bob.bio.caffe_face
-    - bob.ip.tensorflow_extractor
-    - scipy {{ scipy }}
+    - bob.bio.base
+    - matplotlib {{ matplotlib }}
+    - six {{ six }}
   run:
     - python
     - setuptools
-    - scipy
-    - click
-    - click-plugins
-    - tabulate
+    - matplotlib
+    - six
+
 test:
   imports:
     - {{ name }}
   commands:
-    - bob_faceongoing_baselines.py --help
     - nosetests --with-coverage --cover-package={{ name }} -sv {{ name }}
     - sphinx-build -aEW {{ project_dir }}/doc {{ project_dir }}/sphinx
     - sphinx-build -aEb doctest {{ project_dir }}/doc sphinx
@@ -50,10 +46,20 @@ test:
     - coverage
     - sphinx
     - sphinx_rtd_theme
+    - bob.db.arface
+    - bob.db.atnt
+    - bob.db.banca
+    - bob.db.caspeal
+    - bob.db.ijba
+    - bob.db.lfw
+    - bob.db.mobio
+    - bob.db.multipie
+    - bob.db.xm2vts
+    - gridtk
 
 about:
   home: https://www.idiap.ch/software/bob/
   license: BSD License
-  summary: Face recognition experiments and analysis
+  summary: Tools for running face recognition experiments
   license_family: BSD
 
