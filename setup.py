@@ -101,10 +101,25 @@ setup(
     # the version of bob.
     entry_points={
           
-      'bob.cli': [
+      'bob.bio.cli': [
           'face_ongoing = bob.bio.face_ongoing.scripts.baselines:face_ongoing',
       ],
-      
+    
+      'bob.bio.face.baselines':[
+          'vgg16 = bob.bio.face_ongoing.baselines.vgg16:baseline',
+          'facenet = bob.bio.face_ongoing.baselines.facenet:baseline',
+          'drgan = bob.bio.face_ongoing.baselines.drgan:baseline',
+          'cnn8 = bob.bio.face_ongoing.baselines.cnn8:baseline',
+
+          #OUR BASELINES
+          'idiap_casia_inception_v2_centerloss_gray = bob.bio.face_ongoing.baselines.idiap_inception_v2:baseline_idiap_casia_inception_v2_centerloss_gray',
+          'idiap_casia_inception_v2_centerloss_rgb = bob.bio.face_ongoing.baselines.idiap_inception_v2:baseline_idiap_casia_inception_v2_centerloss_rgb',
+
+           'idiap_casia_inception_v1_centerloss_gray = bob.bio.face_ongoing.baselines.idiap_inception_v1:baseline_idiap_casia_inception_v1_centerloss_gray',
+          'idiap_casia_inception_v1_centerloss_rgb = bob.bio.face_ongoing.baselines.idiap_inception_v1:baseline_idiap_casia_inception_v1_centerloss_rgb',
+         
+
+      ],
 
     },
 

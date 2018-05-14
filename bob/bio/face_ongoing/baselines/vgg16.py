@@ -6,20 +6,19 @@
 import pkg_resources
 from .baseline import Baseline
 
-
-class facenet_msceleba_inception_v1(Baseline):
-    """
-    facenet_msceleba_inception_v1
-    
-    Original facenet
+class vgg16(Baseline):
+    """        
+    VGG 16
     """
 
     def __init__(self):
         self.name = "vgg16"
-        self.baseline_type = "VGG"
-        self.extractor = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/vgg16/vgg16.py")
+        self.extractor = 'vgg_features' # Resource registed in bob.bio.caffe_face
+        self.algorithm = 'distance-cosine' # Resource registed in bob.bio.base
         self.preprocessors = dict()
-        self.preprocessors["mobio_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/vgg16/crop_mobio.py")
-        self.preprocessors["ijba_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/vgg16/crop_ijba.py")
-        self.preprocessors["ijbc_crop"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/vgg16/crop_ijba.py")
 
+        self.preprocessors["default"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/vgg16/default_crop.py")
+
+        self.preprocessors["mobio"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/vgg16/mobio_crop.py")
+
+baseline = vgg16()

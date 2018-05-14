@@ -26,7 +26,7 @@ from bob.extension.config import load
 import pkg_resources
 from docopt import docopt
 from bob.bio.base.script.verify import main as verify
-from bob.bio.face_ongoing.baselines import get_all_baselines_by_type, get_all_baselines, get_all_databases
+from bob.bio.face_ongoing.baselines import get_available_databases
 from bob.extension import rc
 from bob.extension.scripts.click_helper import verbosity_option
 from bob.extension.scripts.click_helper import (
@@ -34,77 +34,9 @@ from bob.extension.scripts.click_helper import (
 import click
 
 
-all_baselines = get_all_baselines()
-all_databases = get_all_databases()
-all_baselines_by_type = get_all_baselines_by_type()
-
-
-
-
-
-def trigger_verify(result_dir, temp_dir, preprocessor, extractor, database, groups, sub_directory, protocol=None,
-                   preprocessed_directory=None, extracted_directory=None):
-    
-    result_dir = str(rc['bob_faceongoing_results_dir']) if result_dir is None else result_dir
-    temp_dir = str(rc['bob_faceongoing_temp_dir']) if temp_dir is None else temp_dir
-
-    parameters = [
-        preprocessor,
-        extractor,
-        '-d', database,
-        '-a', "distance-cosine",
-        '-g', 'demanding',
-        '-G','submitted_experiments.sql3',
-        '-vvv',
-        '--temp-directory', temp_dir,
-        '--result-directory', result_dir,
-        '--sub-directory', sub_directory,
-        '--environment','LD_LIBRARY_PATH=/idiap/user/tpereira/cuda/cuda-8.0/lib64:/idiap/user/tpereira/cuda/cudnn-8.0-linux-x64-v5.1/lib64:/idiap/user/tpereira/cuda/cuda-8.0',
-    ] + ['--groups'] + groups
-    if protocol is not None:
-        parameters += ['--protocol', protocol]
-
-    if preprocessed_directory is not None:
-        parameters += ['--preprocessed-directory', preprocessed_directory]
-
-    if extracted_directory is not None:
-        parameters += ['--extracted-directory', extracted_directory]
-
-    return parameters
-
-
-def run_cnn_baseline(baseline, database, result_dir, temp_dir):
-
-    for p in all_databases[database].protocols:
-        import tensorflow as tf
-        tf.reset_default_graph()
-
-        sub_directory = os.path.join(all_databases[database].name, all_baselines[baseline].name, p.replace(":",""))
-        # Taking care of the directories
-        if all_databases[database].preprocessed_directory is None:
-            preprocessed_directory = all_databases[database].preprocessed_directory
-        else:
-            preprocessed_directory = os.path.join(rc['bob_faceongoing_temp_dir'], all_databases[database].name, all_baselines[baseline].name,
-                                                  all_databases[database].preprocessed_directory)
-            
-        # Taking care of the directories
-        if all_databases[database].extracted_directory is None:
-            extracted_directory = all_databases[database].extracted_directory
-        else:
-            extracted_directory = os.path.join(rc['bob_faceongoing_temp_dir'],  all_databases[database].name, all_baselines[baseline].name,
-                                               all_databases[database].extracted_directory)
-        
-        parameters = trigger_verify(result_dir, temp_dir,
-                                    all_baselines[baseline].preprocessors["{0}_crop".format(database)],
-                                    all_baselines[baseline].extractor,
-                                    all_databases[database].config,
-                                    all_databases[database].groups,
-                                    sub_directory,
-                                    protocol=p,
-                                    preprocessed_directory=preprocessed_directory,
-                                    extracted_directory=extracted_directory)
-        
-        verify(parameters)
+all_baselines = bob.bio.base.resource_keys('baselines', package_prefix='bob.bio.face.')
+all_databases = get_available_databases()
+#all_baselines_by_type = get_all_baselines_by_type()
 
 
 @click.group()
@@ -114,39 +46,28 @@ def face_ongoing():
     pass
 
 
-@face_ongoing.command()
-def show():
-    """
-    List all the registered baselines and databases
-    """
-    import tabulate
-
-    click.echo("====================================")
-    click.echo("Follow all the registered databases:")
-    click.echo("===================================="+"\n")
-    
-    click.echo(tabulate.tabulate([[_ for _ in all_databases]+["all"]], tablefmt="simple"))
-
-    click.echo("====================================")
-    click.echo("Follow all the registered baselines:")
-    click.echo("====================================")
-    for a in all_baselines_by_type:
-        click.echo("Baselines of the type: %s"%(a))
-        for b in all_baselines_by_type[a]:
-            click.echo("  >> %s"%(b))
-        click.echo("\n")
-
-
 @face_ongoing.command(entry_point_group='bob.bio.config', cls=ConfigCommand)
 @click.option('--database', '-d', required=True, cls=ResourceOption, help="Registered database", type=click.Choice([_ for _ in all_databases]+["all"]))
 @click.option('--baseline', '-b', required=True, cls=ResourceOption, help="Registered baseline", type=click.Choice([_ for _ in all_baselines]+["all"]))
-
-@click.option('--temp-dir', '-t', required=False, cls=ResourceOption, help="Temp directory. If not set, this value will be take from Bob Global Configuration Variable rc['bob_faceongoing_temp_dir']")
-@click.option('--result-dir', '-r', required=False, cls=ResourceOption, help="Result directory. If not set, this value will be take from Bob Global Configuration Variable rc['bob_faceongoing_result_dir']")
-def run(baseline, database, temp_dir, result_dir, **kwargs):
+@click.option('--temp-dir', '-T', required=False, cls=ResourceOption, help="Temp directory. If not set, this value will be take from Bob Global Configuration Variable rc['bob_faceongoing_temp_dir']")
+@click.option('--result-dir', '-R', required=False, cls=ResourceOption, help="Result directory. If not set, this value will be take from Bob Global Configuration Variable rc['bob_faceongoing_result_dir']")
+@click.option('--grid', '-g', help="Execute the algorithm in the SGE grid.", is_flag=True)
+@click.option('--zt-norm', '-z', help="Enable the computation of ZT norms (if the database supports it).", is_flag=True)
+def baselines(baseline, database, temp_dir, result_dir, grid, zt_norm, **kwargs):
     """
     Run a particular baseline
     """
+
+    def search_preprocessor(key, keys):
+        """
+        Wrapper that searches for preprocessors for specific databases.
+        If not found, the default preprocessor is returned
+        """
+        for k in keys:
+            if key.startswith(k):
+                return k
+        else:
+            return "default"
 
     if database == "all":
         database = all_databases
@@ -161,5 +82,31 @@ def run(baseline, database, temp_dir, result_dir, **kwargs):
     # Triggering training for each baseline/database    
     for b in baselines:
         for d in database:
-            run_cnn_baseline(baseline=b, database=d, result_dir=result_dir, temp_dir=temp_dir)
+
+            loaded_baseline = bob.bio.base.load_resource(b, 'baselines', package_prefix="bob.bio.face.")
+
+            # this is the default sub-directory that is used
+            sub_directory = os.path.join(d, b)
+            database_data = get_available_databases()[d]
+            parameters = [
+                '-p', loaded_baseline.preprocessors[search_preprocessor(d, loaded_baseline.preprocessors.keys())],
+                '-e', loaded_baseline.extractor,
+                '-d', d,
+                '-a', loaded_baseline.algorithm,
+                '-vvv',
+                '--temp-directory', temp_dir,
+                '--result-directory', result_dir,
+                '--sub-directory', sub_directory
+            ]
+            
+            parameters += ['--groups'] + database_data["groups"]
+
+            if grid:
+                parameters += ['-g', 'demanding']
+
+            if zt_norm and 'has_zt' in database_data.keys():
+                parameters += ['--zt-norm']
+
+            verify(parameters)
+
 
