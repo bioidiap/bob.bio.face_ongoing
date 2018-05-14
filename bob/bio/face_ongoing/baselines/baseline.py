@@ -12,14 +12,12 @@ class Baseline(object):
       - Name
       - Preprocessor: A path to the correspondent preprocessor config 
       - Extractor: A path to the correspondent extractor config
-      - reuse_extractor:
-      - preprocessed_data
     
     """
 
     def __init__(self):
         self.name = ""
-        self.baseline_type = ""
         self.preprocessors = dict()
         self.extractor = ""
+        self.algorithm = ""
 
