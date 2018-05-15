@@ -13,3 +13,5 @@ sphinx
 dist
 .idea
 .DS_Store
+build/
+record.txt
