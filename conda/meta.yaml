@@ -21,15 +21,16 @@ requirements:
   host:
     - python {{ python }}
     - setuptools {{ setuptools }}
-    - bob.bio.face
     - bob.bio.base
-    - matplotlib {{ matplotlib }}
-    - six {{ six }}
+    - bob.bio.caffe_face
+    - bob.bio.face
+    - bob.ip.tensorflow_extractor
   run:
     - python
     - setuptools
     - matplotlib
     - six
+    - tensorflow
 
 test:
   imports:
