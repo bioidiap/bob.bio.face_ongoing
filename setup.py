@@ -51,7 +51,7 @@ setup(
     version=open("version.txt").read().rstrip(),
     description='Tools for running face recognition experiments',
 
-    url='https://gitlab.idiap.ch/bob/bob.bio.face-ongoing',
+    url='https://gitlab.idiap.ch/bob/bob.bio.face_ongoing',
     license='BSD',
     author='Tiago de Freitas Pereira',
     author_email='tiago.pereira@idiap.ch',
@@ -104,20 +104,33 @@ setup(
       'bob.bio.cli': [
           'face_ongoing = bob.bio.face_ongoing.scripts.baselines:face_ongoing',
       ],
-    
-      'bob.bio.face.baselines':[
-          'vgg16 = bob.bio.face_ongoing.baselines.vgg16:baseline',
-          'facenet = bob.bio.face_ongoing.baselines.facenet:baseline',
-          'drgan = bob.bio.face_ongoing.baselines.drgan:baseline',
-          'cnn8 = bob.bio.face_ongoing.baselines.cnn8:baseline',
-          'casianet = bob.bio.face_ongoing.baselines.casianet:baseline',
+
+      'bob.bio.database': [
+          'lfw_fold1  = bob.bio.face_ongoing.configs.database.lfw:fold1' ,
+          'lfw_fold2  = bob.bio.face_ongoing.configs.database.lfw:fold2' ,
+          'lfw_fold3  = bob.bio.face_ongoing.configs.database.lfw:fold3' ,
+          'lfw_fold4  = bob.bio.face_ongoing.configs.database.lfw:fold4' ,
+          'lfw_fold5  = bob.bio.face_ongoing.configs.database.lfw:fold5' ,
+          'lfw_fold6  = bob.bio.face_ongoing.configs.database.lfw:fold6' ,
+          'lfw_fold7  = bob.bio.face_ongoing.configs.database.lfw:fold7' ,
+          'lfw_fold8  = bob.bio.face_ongoing.configs.database.lfw:fold8' ,
+          'lfw_fold9  = bob.bio.face_ongoing.configs.database.lfw:fold9' ,
+          'lfw_fold10 = bob.bio.face_ongoing.configs.database.lfw:fold10',
+      ],
+     
+      'bob.bio.baseline':[
+          'vgg16 = bob.bio.face_ongoing.baselines.vgg16:vgg16',
+          'facenet = bob.bio.face_ongoing.baselines.facenet:facenet',
+          'drgan = bob.bio.face_ongoing.baselines.drgan:drgan',
+          'cnn8 = bob.bio.face_ongoing.baselines.cnn8:cnn8',
+          'casianet = bob.bio.face_ongoing.baselines.casianet:casianet',
 
           #OUR BASELINES
-          'idiap_casia_inception_v2_centerloss_gray = bob.bio.face_ongoing.baselines.idiap_inception_v2:baseline_idiap_casia_inception_v2_centerloss_gray',
-          'idiap_casia_inception_v2_centerloss_rgb = bob.bio.face_ongoing.baselines.idiap_inception_v2:baseline_idiap_casia_inception_v2_centerloss_rgb',
+          'idiap_casia_inception_v2_centerloss_gray = bob.bio.face_ongoing.baselines.idiap_inception_v2:idiap_casia_inception_v2_centerloss_gray',
+          'idiap_casia_inception_v2_centerloss_rgb = bob.bio.face_ongoing.baselines.idiap_inception_v2:idiap_casia_inception_v2_centerloss_rgb',
 
-           'idiap_casia_inception_v1_centerloss_gray = bob.bio.face_ongoing.baselines.idiap_inception_v1:baseline_idiap_casia_inception_v1_centerloss_gray',
-          'idiap_casia_inception_v1_centerloss_rgb = bob.bio.face_ongoing.baselines.idiap_inception_v1:baseline_idiap_casia_inception_v1_centerloss_rgb',
+           'idiap_casia_inception_v1_centerloss_gray = bob.bio.face_ongoing.baselines.idiap_inception_v1:idiap_casia_inception_v1_centerloss_gray',
+          'idiap_casia_inception_v1_centerloss_rgb = bob.bio.face_ongoing.baselines.idiap_inception_v1:idiap_casia_inception_v1_centerloss_rgb',
          
 
       ],

@@ -4,22 +4,13 @@
 
 
 import pkg_resources
-from .baseline import Baseline
+from bob.bio.base.baseline import Baseline
 
-
-class drgan(Baseline):
-    """
-    Original DRGan
-    """
-
-    def __init__(self):
-        self.name = "drgan"
-        self.algorithm = 'distance-cosine' # Resource registed in bob.bio.base
-        self.extractor = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/drgan/extractor.py")
-        self.preprocessors = dict()
-        self.preprocessors["default"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/drgan/default_crop.py")
-        self.preprocessors["mobio"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/drgan/eyes_crop.py")
-        self.preprocessors["lfw"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/drgan/eyes_crop.py")
-
-baseline = drgan()
-
+preprocessors = dict()
+preprocessors["default"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/drgan/default_crop.py")
+preprocessors["mobio"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/drgan/eyes_crop.py")
+preprocessors["lfw"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/drgan/eyes_crop.py")
+drgan = Baseline(name = "drgan",\
+                    algorithm = 'distance-cosine',\
+                    extractor = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/drgan/extractor.py"),\
+                    preprocessors=preprocessors)
