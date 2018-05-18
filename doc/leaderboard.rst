@@ -37,6 +37,11 @@ Testing only the **mobio-male** protocol.
  +-------------------------------+-------------+-------------+
 
 
+To run all these baselines do:
+
+
+
+
 Follow below the DET curves for the development and dev sets
 
 .. image:: ./img/mobio-male/DET-dev.png
