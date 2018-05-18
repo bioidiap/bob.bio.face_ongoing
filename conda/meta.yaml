@@ -25,11 +25,13 @@ requirements:
     - bob.bio.base
     - bob.bio.caffe_face
     - bob.bio.face
+    - bob.ip.tensorflow_extractor
   run:
     - python
     - setuptools
     - matplotlib
     - six
+    - tensorflow
 test:
   imports:
     - {{ name }}
