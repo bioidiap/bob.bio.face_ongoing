@@ -2,5 +2,6 @@
 # vim: set fileencoding=utf-8 :
 # Tiago de Freitas Pereira <tiago.pereira@idiap.ch>
 
-preprocessor='face-eyes-vgg'
+from bob.ip.pytorch_extractor import CasiaNetExtractor
 
+extractor = CasiaNetExtractor()

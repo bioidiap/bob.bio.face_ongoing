@@ -56,6 +56,16 @@ This subsection presents the error rate results for each baseline/database.
     
    baselines/baselines
 
+=============
+Leaderboard
+=============
+
+.. toctree::
+   :maxdepth: 2
+    
+   leaderboard
+
+
 
 ==========
 User guide

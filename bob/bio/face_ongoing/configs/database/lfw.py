@@ -28,6 +28,3 @@ fold7  = create_lfw("fold7")
 fold8  = create_lfw("fold8")
 fold9  = create_lfw("fold9")
 fold10 = create_lfw("fold10")
-
-
-

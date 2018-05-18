@@ -18,4 +18,5 @@ In the next subsections we present the results/analysis of some experiments usin
    idiap_resnet_casia_webface
    isv
    gmm
+   bob_ip_pytorch
 

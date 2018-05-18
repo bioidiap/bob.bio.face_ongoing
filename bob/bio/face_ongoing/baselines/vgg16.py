@@ -7,8 +7,8 @@ from bob.bio.base.baseline import Baseline
 
 # idiap_casia_inception_v2_centerloss_gray
 preprocessors = dict()        
-preprocessors["default"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/vgg16/default_crop.py")
-preprocessors["mobio"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/vgg16/mobio_crop.py")
+preprocessors["default"] = 'face-head-vgg'
+preprocessors["mobio"] = 'face-eyes-vgg'
 
 vgg16 = Baseline(name = "vgg16",\
                  extractor = 'vgg_features',\

@@ -34,12 +34,11 @@ The database is divided in 10 splits each defining training, enrollment and
 probe data.
 
 
-IARPA Janus Benchmark A (IJB-B)
+IARPA Janus Benchmark A (IJB-C)
 -------------------------------
 
-The IJB-B database is a mixture of frontal and non-frontal images and videos
-(provided as single frames) from 1845 different identities. 
+The IJB-C database is a mixture of frontal and non-frontal images and videos
+(provided as single frames) from 3531 different identities. 
 In many of the images and video frames, there are several people visible, but only the ones that are annotated with a bounding box should be taken into consideration.
 For both model enrollment as well as for probing, images and video frames of one person are combined into so-called Templates.
 For some of the protocols, probe templates are also generated from raw video data.
-
