@@ -50,6 +50,13 @@ build_linux_27:
   <<: *linux_build_job
   variables:
     PYTHON_VERSION: "2.7"
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - _ci/
+      - dist/*.zip
+      - sphinx
+      - ${CONDA_ROOT}/conda-bld/linux-64/*.tar.bz2
 
 
 #build_linux_36:
