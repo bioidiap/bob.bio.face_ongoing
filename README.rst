@@ -3,7 +3,7 @@
 
 
 .. image:: http://img.shields.io/badge/docs-latest-orange.svg
-   :target: http://beatubulatest.lab.idiap.ch/private/docs/bob/bob.bio.face_ongoing/master/index.html
+   :target: https://www.idiap.ch/software/bob/docs/bob/bob.bio.face_ongoing/master/index.html
 .. image:: https://gitlab.idiap.ch/bob/bob.bio.face_ongoing/badges/master/build.svg
    :target: https://gitlab.idiap.ch/bob/bob.bio.face_ongoing/commits/master
 .. image:: https://img.shields.io/badge/gitlab-project-0000c0.svg
