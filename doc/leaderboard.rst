@@ -35,11 +35,23 @@ Testing only the **mobio-male** protocol.
  +-------------------------------+-------------+-------------+
  | **Resnetv1 center loss RGB**  | 1.7%        | 0.9%        |
  +-------------------------------+-------------+-------------+
+ | **ISV**                       | 3.2%        | 7.5%        |
+ +-------------------------------+-------------+-------------+
 
 
-To run all these baselines do:
+To run each one of these baselines do:
 
+.. code-block:: sh
 
+    $ bob bio baseline vgg16 mobio-male -T <TEMP-DIR> -R <RESULT-DIR>
+    $ bob bio baseline facenet mobio-male -T <TEMP-DIR> -R <RESULT-DIR>
+    $ bob bio baseline casianet mobio-male -T <TEMP-DIR> -R <RESULT-DIR>
+    $ bob bio baseline cnn8 mobio-male -T <TEMP-DIR> -R <RESULT-DIR>
+    $ bob bio baseline idiap_casia_inception_v1_centerloss_gray mobio-male -T <TEMP-DIR> -R <RESULT-DIR>
+    $ bob bio baseline idiap_casia_inception_v1_centerloss_rgb mobio-male -T <TEMP-DIR> -R <RESULT-DIR>
+    $ bob bio baseline idiap_casia_inception_v2_centerloss_gray mobio-male -T <TEMP-DIR> -R <RESULT-DIR>
+    $ bob bio baseline idiap_casia_inception_v2_centerloss_rgb mobio-male -T <TEMP-DIR> -R <RESULT-DIR>
+    $ bob bio baseline isv mobio-male -T <TEMP-DIR> -R <RESULT-DIR>
 
 
 Follow below the DET curves for the development and dev sets

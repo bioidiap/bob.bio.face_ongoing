@@ -46,50 +46,24 @@ stages:
     key: "linux-cache"
 
 
-.build_macosx_template: &macosx_build_job
-  <<: *build_job
-  tags:
-    - macosx
-  artifacts:
-    expire_in: 1 week
-    paths:
-      - _ci/
-      - ${CONDA_ROOT}/conda-bld/osx-64/*.tar.bz2
-  cache:
-    <<: *build_caches
-    key: "macosx-cache"
-
-
 build_linux_27:
   <<: *linux_build_job
   variables:
     PYTHON_VERSION: "2.7"
 
 
-build_linux_36:
-  <<: *linux_build_job
-  variables:
-    PYTHON_VERSION: "3.6"
-    BUILD_EGG: "true"
-  artifacts:
-    expire_in: 1 week
-    paths:
-      - _ci/
-      - dist/*.zip
-      - sphinx
-      - ${CONDA_ROOT}/conda-bld/linux-64/*.tar.bz2
-
-
-build_macosx_27:
-  <<: *macosx_build_job
-  variables:
-    PYTHON_VERSION: "2.7"
-
-
-build_macosx_36:
-  <<: *macosx_build_job
-  variables:
-    PYTHON_VERSION: "3.6"
+#build_linux_36:
+#  <<: *linux_build_job
+#  variables:
+#    PYTHON_VERSION: "3.6"
+#    BUILD_EGG: "true"
+#  artifacts:
+#    expire_in: 1 week
+#    paths:
+#      - _ci/
+#      - dist/*.zip
+#      - sphinx
+#      - ${CONDA_ROOT}/conda-bld/linux-64/*.tar.bz2
 
 
 # Deploy targets
@@ -101,9 +75,7 @@ build_macosx_36:
     - ./_ci/deploy.sh
   dependencies:
     - build_linux_27
-    - build_linux_36
-    - build_macosx_27
-    - build_macosx_36
+    #- build_linux_36
   tags:
     - deployer
 
@@ -136,7 +108,7 @@ pypi:
   script:
     - ./_ci/pypi.sh
   dependencies:
-    - build_linux_36
+    - build_linux_27
   tags:
     - deployer
 
