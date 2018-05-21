@@ -10,6 +10,7 @@ from bob.bio.base.baseline import Baseline
 preprocessors = dict()
 preprocessors["default"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/casianet/default_crop.py")
 preprocessors["mobio"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/casianet/eyes_crop.py")
+preprocessors["lfw"] = pkg_resources.resource_filename("bob.bio.face_ongoing", "configs/baselines/casianet/eyes_crop.py")
 
 casianet = Baseline(name="casianet", \
                     preprocessors=preprocessors,\
