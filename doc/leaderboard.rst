@@ -43,15 +43,15 @@ To run each one of these baselines do:
 
 .. code-block:: sh
 
-    $ bob bio baseline vgg16 mobio-male -T <TEMP-DIR> -R <RESULT-DIR>
-    $ bob bio baseline facenet mobio-male -T <TEMP-DIR> -R <RESULT-DIR>
-    $ bob bio baseline casianet mobio-male -T <TEMP-DIR> -R <RESULT-DIR>
-    $ bob bio baseline cnn8 mobio-male -T <TEMP-DIR> -R <RESULT-DIR>
-    $ bob bio baseline idiap_casia_inception_v1_centerloss_gray mobio-male -T <TEMP-DIR> -R <RESULT-DIR>
-    $ bob bio baseline idiap_casia_inception_v1_centerloss_rgb mobio-male -T <TEMP-DIR> -R <RESULT-DIR>
-    $ bob bio baseline idiap_casia_inception_v2_centerloss_gray mobio-male -T <TEMP-DIR> -R <RESULT-DIR>
-    $ bob bio baseline idiap_casia_inception_v2_centerloss_rgb mobio-male -T <TEMP-DIR> -R <RESULT-DIR>
-    $ bob bio baseline isv mobio-male -T <TEMP-DIR> -R <RESULT-DIR>
+    $ bob bio baseline vgg16 mobio-male
+    $ bob bio baseline facenet mobio-male
+    $ bob bio baseline casianet mobio-male
+    $ bob bio baseline cnn8 mobio-male
+    $ bob bio baseline idiap_casia_inception_v1_centerloss_gray mobio-male
+    $ bob bio baseline idiap_casia_inception_v1_centerloss_rgb mobio-male
+    $ bob bio baseline idiap_casia_inception_v2_centerloss_gray mobio-male
+    $ bob bio baseline idiap_casia_inception_v2_centerloss_rgb mobio-male
+    $ bob bio baseline isv mobio-male
 
 
 Follow below the DET curves for the development and dev sets
@@ -65,7 +65,8 @@ Follow below the DET curves for the development and dev sets
 LFW
 ---
 
-Averaging in 10 folds.
+LFW presents a 10 fold evaluation protocol for **open-set identification**.
+Follow below the average True Positive Identification Rate measures under different False Alarm Rates (10 folds averaging).
 
   +-----------------------------+-----------------+-----------------+-----------------+
   | System                      | TPIR% (FAR=0.1) | TPIR% (FAR=0.01)|TPIR% (FAR=0.001)|
@@ -88,6 +89,11 @@ Averaging in 10 folds.
   +-----------------------------+-----------------+-----------------+-----------------+
   | Resnetv1 cross loss rgb     | 98.36 (0.56)    | 92.53 (1.54)    | 77.53 (11.13)   |
   +-----------------------------+-----------------+-----------------+-----------------+
+
+Another view of the same metric is the Detection and Identification Rate.
+Follow below such figure of merit under the first fold only.
+
+.. image:: ./img/lfw/DIR-lfw_fold1.png
 
 
 
