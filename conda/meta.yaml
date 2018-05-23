@@ -30,6 +30,7 @@ requirements:
     - setuptools
     - matplotlib
     - six
+    - wheel
     - tensorflow
 test:
   imports:
