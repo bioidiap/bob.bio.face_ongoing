@@ -20,16 +20,29 @@ Please `install conda <https://conda.io/docs/install/quick.html#linux-miniconda-
 
 After everything installed do::
 
+  $ git clone https://gitlab.idiap.ch/bob/bob.bio.face_ongoing
   $ cd bob.bio.face_ongoing
   $ conda env create -f environment.yml
   $ source activate bob.bio.face_ongoing  # activate the environment
   $ buildout
       
+This software component contains all the necessary software stack to execute face recognition experiments, but doesn't
+provide any data to test it.
+:ref:`Click here <databases-benchmark>` to see how to prepare the database data before execute an experiment.
 
-Before the magic begins, it's necessary to set a set of paths.
 
-.. TODO::
-  To be done folks
+Face recognition baselines are available in the format of `baseline <https://www.idiap.ch/software/bob/docs/bob/bob.bio.base/master/baseline.html>`_ via the command bellow::
+
+  $ bob bio baseline <BASELINE_NAME> <DATABASE_NAME>
+
+You can use `--help` for more information::
+
+  $ bob bio baseline --help
+
+To check it out the baselines and the databases available do::
+
+  $ resources.py --types baseline
+  $ resources.py --types database
 
 
 ==========
