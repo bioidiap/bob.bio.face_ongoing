@@ -7,7 +7,7 @@ from bob.learn.tensorflow.network import inception_resnet_v2_batch_norm
 import tensorflow as tf
 from bob.extension import rc
 from bob.bio.face_ongoing.extractor import TensorflowEmbedding
-model_filename = rc['inception-v2_batchnorm_rgb']
+model_filename = rc['bob.bio.face_ongoing.inception-v2_batchnorm_rgb']
 
 #########
 # Extraction
