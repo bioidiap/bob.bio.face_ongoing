@@ -101,10 +101,6 @@ setup(
     # the version of bob.
     entry_points={
           
-      'bob.bio.cli': [
-          'face_ongoing = bob.bio.face_ongoing.scripts.baselines:face_ongoing',
-      ],
-
       'bob.bio.database': [
           'lfw_fold1  = bob.bio.face_ongoing.configs.database.lfw:fold1' ,
           'lfw_fold2  = bob.bio.face_ongoing.configs.database.lfw:fold2' ,
@@ -122,6 +118,8 @@ setup(
           'vgg16 = bob.bio.face_ongoing.baselines.vgg16:vgg16',
           'facenet = bob.bio.face_ongoing.baselines.facenet:facenet',
           'drgan = bob.bio.face_ongoing.baselines.drgan:drgan',
+
+          # Ones implemented on pytorch
           'cnn8 = bob.bio.face_ongoing.baselines.cnn8:cnn8',
           'casianet = bob.bio.face_ongoing.baselines.casianet:casianet',
 
@@ -131,7 +129,8 @@ setup(
 
            'idiap_casia_inception_v1_centerloss_gray = bob.bio.face_ongoing.baselines.idiap_inception_v1:idiap_casia_inception_v1_centerloss_gray',
           'idiap_casia_inception_v1_centerloss_rgb = bob.bio.face_ongoing.baselines.idiap_inception_v1:idiap_casia_inception_v1_centerloss_rgb',
-         
+ 
+          'experimental = bob.bio.face_ongoing.baselines.experimental:experimental',
 
       ],
 
