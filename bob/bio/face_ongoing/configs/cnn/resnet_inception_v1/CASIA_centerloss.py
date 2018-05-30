@@ -7,13 +7,13 @@ import os
 import tensorflow as tf
 
 
-learning_rate = 0.1
+learning_rate = 0.01
 data_shape = (182, 182, 3)
 output_shape = (160, 160)
 data_type = tf.uint8
 batch_size = 90
 validation_batch_size = 250
-epochs = 15
+epochs = 10
 n_classes = 10574
 embedding_validation = True
 architecture = inception_resnet_v1_batch_norm
