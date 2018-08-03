@@ -117,6 +117,7 @@ setup(
       'bob.bio.baseline':[
           'vgg16 = bob.bio.face_ongoing.baselines.vgg16:vgg16',
           'facenet = bob.bio.face_ongoing.baselines.facenet:facenet',
+          'facenet_5b = bob.bio.face_ongoing.baselines.facenet:facenet_5b',
           'drgan = bob.bio.face_ongoing.baselines.drgan:drgan',
 
           # Ones implemented on pytorch
@@ -124,11 +125,21 @@ setup(
           'casianet = bob.bio.face_ongoing.baselines.casianet:casianet',
 
           #OUR BASELINES
+          
+          # CASIA
           'idiap_casia_inception_v2_centerloss_gray = bob.bio.face_ongoing.baselines.idiap_inception_v2:idiap_casia_inception_v2_centerloss_gray',
           'idiap_casia_inception_v2_centerloss_rgb = bob.bio.face_ongoing.baselines.idiap_inception_v2:idiap_casia_inception_v2_centerloss_rgb',
 
-           'idiap_casia_inception_v1_centerloss_gray = bob.bio.face_ongoing.baselines.idiap_inception_v1:idiap_casia_inception_v1_centerloss_gray',
+          'idiap_casia_inception_v1_centerloss_gray = bob.bio.face_ongoing.baselines.idiap_inception_v1:idiap_casia_inception_v1_centerloss_gray',
           'idiap_casia_inception_v1_centerloss_rgb = bob.bio.face_ongoing.baselines.idiap_inception_v1:idiap_casia_inception_v1_centerloss_rgb',
+          
+          #MS CELEB
+          'idiap_msceleb_inception_v2_centerloss_rgb = bob.bio.face_ongoing.baselines.idiap_inception_v2:idiap_msceleb_inception_v2_centerloss_rgb',
+          'idiap_msceleb_inception_v2_centerloss_gray = bob.bio.face_ongoing.baselines.idiap_inception_v2:idiap_msceleb_inception_v2_centerloss_gray',
+
+          'idiap_msceleb_inception_v1_centerloss_rgb = bob.bio.face_ongoing.baselines.idiap_inception_v1:idiap_msceleb_inception_v1_centerloss_rgb',
+          'idiap_msceleb_inception_v1_centerloss_gray = bob.bio.face_ongoing.baselines.idiap_inception_v1:idiap_msceleb_inception_v1_centerloss_gray',
+          
  
           'experimental = bob.bio.face_ongoing.baselines.experimental:experimental',
 

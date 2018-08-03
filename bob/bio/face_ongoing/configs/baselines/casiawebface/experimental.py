@@ -7,7 +7,9 @@ from bob.learn.tensorflow.network import inception_resnet_v2_batch_norm
 import tensorflow as tf
 from bob.extension import rc
 from bob.bio.face_ongoing.extractor import TensorflowEmbedding
-model_filename = "/idiap/temp/tpereira/casia_webface/inception_resnet_v2/centerloss_alpha-0.90_factor-0.02/"
+#model_filename = "/idiap/temp/tpereira/casia_webface/inception_resnet_v2/centerloss_alpha-0.90_factor-0.02/"
+#model_filename = "/idiap/temp/tpereira/msceleb/inception_resnet_v2/centerloss_alpha-0.90_factor-0.02/"
+model_filename = "/idiap/project/hface/models/official_checkpoints/msceleb/inception-v2_batchnorm_rgb/"
 
 #########
 # Extraction

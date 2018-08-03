@@ -1,6 +1,6 @@
 
-./bin/jman submit --name C-v1-BA --repeat 1 --queue gpu \
- ./bin/bob_tf_train_generic ./bob/bio/face_ongoing/configs/cnn/resnet_inception_v1/CASIA_centerloss_batchnorm.py
+#./bin/jman submit --name C-v1-BA --repeat 1 --queue gpu \
+# ./bin/bob_tf_train_generic ./bob/bio/face_ongoing/configs/cnn/resnet_inception_v1/CASIA_centerloss_batchnorm.py
 
 #./bin/jman submit --name C-G-v1 --repeat 1 --queue gpu -- \
 # ./bin/bob_tf_train_generic ./bob/bio/face_ongoing/configs/cnn/resnet_inception_v1/CASIA_centerloss_noBatchNorm_GRAY.py

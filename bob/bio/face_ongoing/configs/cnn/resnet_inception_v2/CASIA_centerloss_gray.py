@@ -33,6 +33,7 @@ tfrecords_filename_validation = [os.path.join(tf_record_path_validation, f) for 
 def train_input_fn():
     return shuffle_data_and_labels_image_augmentation(tfrecords_filename, data_shape, data_type, batch_size, epochs=epochs,
                                                       output_shape=output_shape,
+                                                      buffer_size=10*4,
                                                       random_flip=True,
                                                       random_brightness=False,
                                                       random_contrast=False,

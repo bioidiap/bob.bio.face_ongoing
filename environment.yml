@@ -1,22 +1,24 @@
-name: bob.bio.face-ongoing
+name: bob.bio.face-ongoing_bob5
 channels:
   - https://www.idiap.ch/software/bob/conda
   - defaults
   - http://www.idiap.ch/software/bob/conda
 dependencies:
-  - alabaster=0.7.10
-  - babel=2.5.3
-  - bob=4.0.1
-  - bob.bio.base=3.3.0
-  - bob.bio.caffe_face=1.1.0
-  - bob.bio.face=3.4.0
-  - bob.bio.gmm=3.2.1
-  - bob.db.ijba=2.1.0
-  - bob.db.lfw=2.1.6
-  - bob.db.mobio=2.2.0
-  - bob.buildout=2.1.6
-  - zc.buildout=2.11.2
-  - zc.recipe.egg=2.0.5
+  - alabaster
+  - babel
+  - bob=5.0.0
+  - bob.bio.base
+  - bob.bio.caffe_face
+  - bob.bio.face
+  - bob.bio.gmm
+  - bob.db.ijba
+  - bob.db.lfw
+  - bob.db.mobio
+  - bob.ip.tensorflow_extractor
+  - bob.buildout
+  - zc.buildout
+  - zc.recipe.egg
+  - sphinx_rtd_theme
   - ipdb
   - pip:
     - torch==0.4.0
