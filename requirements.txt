@@ -1,5 +1,4 @@
 bob.bio.base
 bob.bio.face
 bob.bio.caffe_face
-tensorflow
 bob.ip.tensorflow_extractor
