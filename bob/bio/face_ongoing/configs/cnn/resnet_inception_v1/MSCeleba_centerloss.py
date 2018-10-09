@@ -7,7 +7,7 @@ import os
 import tensorflow as tf
 
 # HYPER PARAMETERS
-learning_rate = 0.01
+learning_rate = 0.1
 data_shape = (182, 182, 3)  # size of atnt images
 output_shape = (160, 160)
 data_type = tf.uint8
@@ -29,8 +29,12 @@ model_dir = "/idiap/temp/tpereira/msceleb/inception_resnet_v1_rgb/centerloss_alp
 #n_classes = 89288
 
 # 20% PRUNNED
-tf_record_path = "/idiap/project/hface/databases/tfrecords/msceleba/tfrecord_182x_hand_prunned_20/"
-n_classes = 88526
+#tf_record_path = "/idiap/project/hface/databases/tfrecords/msceleba/tfrecord_182x_hand_prunned_20/"
+#n_classes = 88526
+
+# 44% PRUNNED
+tf_record_path = "/idiap/project/hface/databases/tfrecords/msceleba/tfrecord_182x_hand_prunned_44/"
+n_classes = 87662
 
 
 tf_record_path_validation = "/idiap/project/hface/databases/tfrecords/lfw/182x/RGB"

@@ -7,7 +7,7 @@ from bob.learn.tensorflow.network import inception_resnet_v1_batch_norm
 import tensorflow as tf
 from bob.extension import rc
 from bob.bio.face_ongoing.extractor import TensorflowEmbedding
-model_filename = rc['bob.bio.face_ongoing.inception-v1_batchnorm_rgb']
+model_filename = rc['bob.bio.face_ongoing.casia-webface-inception-v1_batchnorm_rgb']
 
 #########
 # Extraction

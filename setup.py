@@ -145,6 +145,18 @@ setup(
 
       ],
 
+      # bob bio scripts
+      'bob.bio.cli': [
+        'face_ongoing  = bob.bio.face_ongoing.script.face_ongoing:face_ongoing',
+      ],
+
+      # bob bio scripts
+      'bob.bio.face_ongoing.cli': [
+        'download_models     = bob.bio.face_ongoing.script.commands:download_models',
+        'check_models     = bob.bio.face_ongoing.script.commands:check_models',
+      ],
+
+
     },
 
     # Classifiers are important if you plan to distribute this package through

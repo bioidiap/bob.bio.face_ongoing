@@ -9,6 +9,8 @@ from bob.extension import rc
 from bob.bio.face_ongoing.extractor import TensorflowEmbedding
 model_filename = rc['bob.bio.face_ongoing.msceleb-inception-v1_batchnorm_rgb']
 
+#model_filename = "/idiap/temp/tpereira/msceleb/inception_resnet_v1_rgb/centerloss_alpha-0.90_factor-0.02/"
+
 #########
 # Extraction
 #########

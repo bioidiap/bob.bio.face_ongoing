@@ -1,4 +1,4 @@
-name: bob.bio.face-ongoing_bob5
+name: bob.bio.face-ongoing
 channels:
   - https://www.idiap.ch/software/bob/conda
   - defaults
@@ -20,6 +20,6 @@ dependencies:
   - zc.recipe.egg
   - sphinx_rtd_theme
   - ipdb
+  - gridtk
   - pip:
     - torch==0.4.0
-prefix: /idiap/user/tpereira/conda/envs/bob.bio.face-ongoing
