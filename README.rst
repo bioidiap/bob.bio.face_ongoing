@@ -1,7 +1,6 @@
 .. vim: set fileencoding=utf-8 :
 .. Tiago de Freitas Pereira <tiago.pereira@idiap.ch>
 
-
 .. image:: https://img.shields.io/badge/docs-stable-yellow.svg
    :target: https://www.idiap.ch/software/bob/docs/bob/bob.bio.face_ongoing/stable/index.html
 .. image:: http://img.shields.io/badge/docs-latest-orange.svg
@@ -28,3 +27,4 @@ This package contains `bob.bio.base <http://pypi.python.org/pypi/bob.bio.base>`_
 It's also contains some discussions about the baselines and databasese.
 
 
+.. _bob: https://www.idiap.ch/software/bob
