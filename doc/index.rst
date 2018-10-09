@@ -18,7 +18,14 @@ This package is an extension of the `bob.bio.base <https://www.idiap.ch/software
 The installation instructions are based on conda (**LINUX ONLY**).
 Please `install conda <https://conda.io/docs/install/quick.html#linux-miniconda-install>`_ before continuing.
 
+
 After everything installed do::
+
+  $ conda install bob.bio.face_ongoing
+  $ bob bio face_ongoing download_models <DESTINATION_PATH>
+
+
+If you want to developt this package do ::
 
   $ git clone https://gitlab.idiap.ch/bob/bob.bio.face_ongoing
   $ cd bob.bio.face_ongoing

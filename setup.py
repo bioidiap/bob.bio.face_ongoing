@@ -156,7 +156,6 @@ setup(
         'check_models     = bob.bio.face_ongoing.script.commands:check_models',
       ],
 
-
     },
 
     # Classifiers are important if you plan to distribute this package through
