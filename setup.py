@@ -140,8 +140,12 @@ setup(
           'idiap_msceleb_inception_v1_centerloss_rgb = bob.bio.face_ongoing.baselines.idiap_inception_v1:idiap_msceleb_inception_v1_centerloss_rgb',
           'idiap_msceleb_inception_v1_centerloss_gray = bob.bio.face_ongoing.baselines.idiap_inception_v1:idiap_msceleb_inception_v1_centerloss_gray',
           
+          
+          'rank-one = bob.bio.face_ongoing.baselines.rankone:rank_one',
  
           'experimental = bob.bio.face_ongoing.baselines.experimental:experimental',
+          
+          
 
       ],
 

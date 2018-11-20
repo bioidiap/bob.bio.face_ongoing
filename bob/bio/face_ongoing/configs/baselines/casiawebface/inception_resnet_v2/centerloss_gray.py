@@ -8,6 +8,8 @@ import tensorflow as tf
 from bob.extension import rc
 from bob.bio.face_ongoing.extractor import TensorflowEmbedding
 model_filename = rc['bob.bio.face_ongoing.casia-webface-inception-v2_batchnorm_gray']
+#model_filename = rc['bob.bio.face_ongoing.msceleb-inception-v2_batchnorm_gray']
+
 
 #########
 # Extraction
