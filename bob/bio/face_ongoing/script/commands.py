@@ -3,6 +3,7 @@ import pkg_resources
 from click_plugins import with_plugins
 from bob.extension.scripts.click_helper import AliasedGroup, ConfigCommand, ResourceOption, verbosity_option
 import os
+import bob.extension
 import bob.extension.download
 import bob.io.base
 import logging
@@ -18,13 +19,14 @@ def get_models():
 
     class Model(object):
 
-        def __init__(self, group, model_name, url):
+        def __init__(self, group, model_name, url, inside_file_structure):
 
             module = "bob.bio.face_ongoing."
             self.group       = group
             self.model_name  = model_name
             self.url         = url
             self.config_name = module + group + "-" + model_name
+            self.inside_file_structure = inside_file_structure
 
 
     # MAKE AS PARAMETERS
@@ -39,19 +41,24 @@ def get_models():
     for g in groups:
         model_name = "inception-v1_batchnorm_gray"
         url = os.path.join(base_url, branch, g, model_name + extension)
-        models.append(Model(g, model_name, url))
+        #inside_file_structure = os.path.join("inception-v1_batchnorm_gray", "centerloss_alpha-0.90_factor-0.02")
+        inside_file_structure = os.path.join("inception-v1_batchnorm_gray")
+        models.append(Model(g, model_name, url, inside_file_structure))
 
         model_name = "inception-v1_batchnorm_rgb"
         url = os.path.join(base_url, branch, g, model_name + extension)
-        models.append(Model(g, model_name, url))
+        inside_file_structure = os.path.join("inception-v1_batchnorm_rgb")
+        models.append(Model(g, model_name, url, inside_file_structure))
 
         model_name = "inception-v2_batchnorm_gray"
         url = os.path.join(base_url, branch, g, model_name + extension)
-        models.append(Model(g, model_name, url))
+        inside_file_structure = os.path.join("inception-v2_batchnorm_gray")
+        models.append(Model(g, model_name, url, inside_file_structure))
 
         model_name = "inception-v2_batchnorm_rgb"
         url = os.path.join(base_url, branch, g, model_name + extension)
-        models.append(Model(g, model_name, url))
+        inside_file_structure = os.path.join("inception-v2_batchnorm_rgb")
+        models.append(Model(g, model_name, url, inside_file_structure))
 
     return models
 
@@ -93,12 +100,13 @@ def download_models(destination_path, **kwargs):
     models = get_models()
 
     # Downloading
+    extension = ".tar.gz"
     rc = bob.extension.rc_config._loadrc()
     for m in models:
         output_path = os.path.join(destination_path, m.group, m.model_name + extension)
 
         # Downloading
-        model_path = os.path.dirname(output_path)
+        model_path = os.path.join(os.path.dirname(output_path), m.inside_file_structure)
         if os.path.exists(model_path):
             logger.info("Model {0} already exists in {1}".format(m.model_name, output_path))
         else:
