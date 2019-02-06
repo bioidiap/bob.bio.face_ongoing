@@ -9,6 +9,7 @@ from bob.bio.base.baseline import Baseline
 preprocessors = dict()        
 preprocessors["default"] = 'face-head-vgg'
 preprocessors["mobio"] = 'face-eyes-vgg'
+preprocessors["fargo"] = 'face-eyes-vgg'
 
 vgg16 = Baseline(name = "vgg16",\
                  extractor = 'vgg_features',\
