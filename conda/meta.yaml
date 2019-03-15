@@ -21,6 +21,7 @@ requirements:
   host:
     - python {{ python }}
     - setuptools {{ setuptools }}
+    - bob.extension
     - bob.bio.base
     - bob.bio.caffe_face
     - bob.bio.face
@@ -41,9 +42,9 @@ test:
     - sphinx-build -aEb doctest {{ project_dir }}/doc sphinx
     - conda inspect linkages -p $PREFIX {{ name }}  # [not win]
     - conda inspect objects -p $PREFIX {{ name }}  # [osx]
-    - bob bio face_ongoing --help
-    - bob bio face_ongoing download_models --help
-    - bob bio face_ongoing check_models --help
+    - bob bio face-ongoing --help
+    - bob bio face-ongoing download-models --help
+    - bob bio face-ongoing check-models --help
   requires:
     - bob-devel {{ bob_devel }}.*
     - nose
