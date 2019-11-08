@@ -1,7 +1,7 @@
 .. vim: set fileencoding=utf-8 :
 .. Tiago de Freitas Pereira <tiago.pereira@idiap.ch>
 
-.. _bob.learn.tensorflow:
+.. _bob.bio.face_ongoing:
 
 =========================
  Face Recognition OnGoing
@@ -11,9 +11,9 @@ The goal of this package is to provide an "easy to reproduce" set of experiments
 face recognition databases.
 This package is an extension of the `bob.bio.base <https://www.idiap.ch/software/bob/docs/bob/bob.bio.base/stable/index.html>`_ framework.
 
-=============
- Installation
-=============
+
+Installation
+============
 
 The installation instructions are based on conda (**LINUX ONLY**).
 Please `install conda <https://conda.io/docs/install/quick.html#linux-miniconda-install>`_ before continuing.
@@ -32,7 +32,7 @@ If you want to developt this package do ::
   $ conda env create -f environment.yml
   $ source activate bob.bio.face_ongoing  # activate the environment
   $ buildout
-      
+
 This software component contains all the necessary software stack to execute face recognition experiments, but doesn't
 provide any data to test it.
 :ref:`Click here <databases-benchmark>` to see how to prepare the database data before execute an experiment.
@@ -52,9 +52,8 @@ To check it out the baselines and the databases available do::
   $ resources.py --types database
 
 
-==========
- Databases
-==========
+Databases
+=========
 
 This subsection describes the databases used in this work and some of the state-of-the-art results.
 
@@ -65,7 +64,6 @@ This subsection describes the databases used in this work and some of the state-
    databases/databases_for_cnn
 
 
-=========
 Baselines
 =========
 
@@ -73,21 +71,19 @@ This subsection presents the error rate results for each baseline/database.
 
 .. toctree::
    :maxdepth: 2
-    
+
    baselines/baselines
 
-=============
 Leaderboard
-=============
+===========
 
 .. toctree::
    :maxdepth: 2
-    
+
    leaderboard
 
 
 
-==========
 User guide
 ==========
 
@@ -98,7 +94,6 @@ User guide
 
 
 
-==================
 Indices and tables
 ==================
 
