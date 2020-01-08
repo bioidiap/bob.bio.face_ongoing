@@ -116,6 +116,7 @@ setup(
      
       'bob.bio.baseline':[
           'vgg16 = bob.bio.face_ongoing.baselines.vgg16:vgg16',
+          'vgg16tf = bob.bio.face_ongoing.baselines.vgg16tf:vgg16tf',
           'facenet = bob.bio.face_ongoing.baselines.facenet:facenet',
           'facenet_5b = bob.bio.face_ongoing.baselines.facenet:facenet_5b',
           'drgan = bob.bio.face_ongoing.baselines.drgan:drgan',
