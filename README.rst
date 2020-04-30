@@ -1,7 +1,7 @@
 .. vim: set fileencoding=utf-8 :
 .. Tiago de Freitas Pereira <tiago.pereira@idiap.ch>
 
-.. image:: https://img.shields.io/badge/docs-available-orage.svg
+.. image:: https://img.shields.io/badge/docs-available-orange.svg
    :target: https://www.idiap.ch/software/bob/docs/bob/bob.bio.face_ongoing/master/index.html
 .. image:: https://gitlab.idiap.ch/bob/bob.bio.face_ongoing/badges/master/pipeline.svg
    :target: https://gitlab.idiap.ch/bob/bob.bio.face_ongoing/commits/master
