@@ -1,14 +1,12 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from functools import partial
-from glob import glob
-
 import pkg_resources
 import tensorflow as tf
-from bob.learn.tensorflow.losses import CenterLoss
-from bob.learn.tensorflow.models.inception_resnet_v2 import InceptionResNetV2
+from glob import glob
 from tensorflow.keras import layers
+from bob.learn.tensorflow.models.inception_resnet_v2 import InceptionResNetV2
+from functools import partial
 
 
 def main():
@@ -90,22 +88,12 @@ def main():
     model = InceptionResNetV2(
         include_top=True, classes=N_CLASSES, input_shape=OUTPUT_SHAPE + (3,)
     )
-    prelogits = model.layers[-2].output
-    predictions = model.layers[-1].output
-    model = tf.keras.Model(
-        inputs=model.input, outputs=[predictions, prelogits], name=model.name
-    )
-
-    cross_entropy = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
-    center_loss = CenterLoss(
-        n_classes=N_CLASSES, n_features=prelogits.shape[-1], alpha=0.9
-    )
 
     model.compile(
         optimizer=tf.keras.optimizers.RMSprop(
             learning_rate=LEARNING_RATE, rho=0.9, momentum=0.9, epsilon=1.0
         ),
-        loss={"predictions": cross_entropy, "avg_pool": center_loss},
+        loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
     )
 
     model.fit(train_ds, epochs=EPOCHS)
